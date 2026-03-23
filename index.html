@@ -131,6 +131,28 @@
         opacity: 0.7;
     }
 
+    .mail-btn {
+        display: inline-block;
+        margin-top: 12px;
+        padding: 9px 20px;
+        background: transparent;
+        color: #1abc9c;
+        border: 1px solid #1abc9c;
+        border-radius: 6px;
+        text-decoration: none;
+        font-weight: bold;
+        font-size: 0.9em;
+        letter-spacing: 0.5px;
+        transition: background 0.2s, color 0.2s, box-shadow 0.2s;
+        box-shadow: 0 0 6px rgba(26,188,156,0.3);
+    }
+
+    .mail-btn:hover {
+        background: #1abc9c;
+        color: #0b1d2a;
+        box-shadow: 0 0 12px #1abc9c;
+    }
+
     .card-img {
         width: 100%;
         height: 180px;
@@ -240,7 +262,7 @@
             <p id="c1d"></p>
             <div class="buttons">
                 <button class="btn btn-view" onclick="openPage('viewer.html')" id="view1"></button>
-                <button class="btn btn-buy" onclick="buyProduct()" id="buy1"></button>
+                <button class="btn btn-buy" onclick="window.open('https://yasareker.gumroad.com/l/uczvg', '_blank')" id="buy1"></button>
             </div>
         </div>
 
@@ -250,7 +272,7 @@
             <p id="c2d"></p>
             <div class="buttons">
                 <button class="btn btn-view" onclick="openPage('chesse v2.html')" id="view2"></button>
-                <button class="btn btn-buy" onclick="buyProduct()" id="buy2"></button>
+                <button class="btn btn-buy" onclick="window.open('https://yasareker.gumroad.com/l/didyz', '_blank')" id="buy2"></button>
             </div>
         </div>
 
@@ -260,7 +282,7 @@
             <p id="c3d"></p>
             <div class="buttons">
                 <button class="btn btn-view" onclick="openPage('chesse v3.html')" id="view3"></button>
-                <button class="btn btn-buy" onclick="buyProduct()" id="buy3"></button>
+                <button class="btn btn-buy" onclick="window.open('https://yasareker.gumroad.com/l/czfxw', '_blank')" id="buy3"></button>
             </div>
         </div>
     </div>
@@ -294,15 +316,18 @@
 <footer>
     © 2026 Chesse Project &nbsp;|&nbsp;
     <a href="./readme.html" target="_blank" id="readmeLink" style="color:#1abc9c;text-decoration:none;font-weight:bold;"></a>
+    <br>
+    <a href="/cdn-cgi/l/email-protection#caa3a4aca58aa9a2afb9b9afabbabae4a9a5a7e4beb8" class="mail-btn" id="mailBtn"></a>
 </footer>
 
-<script>
+<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
 const translations = {
     tr: {
         langBtn: "EN",
         readmeLink: "📖 Kılavuz",
+        mailBtn: "✉️ info@chesseapp.com.tr",
         introTitle: "Satranç Yazılımını Yapma Fikri nasıl Ortaya Çıktı",
-        introText: "2. Kademe Satranç Antronörüyüm. Yeni başlayan ve orta düzeyde olan oyuncuların pahalı satranç programlarına erişmelerinin kısıtlı olduğunu gördüm. Ayrıca bu programların oyuncuların ihtiyacı olmayan bir çok özellik barındırdığını gördüm. Web tasarımı da yaptığım için öncelikle web uyumlu program geliştirdim. Ancak web sayfasındaki 'Cache' sorunları nedeniyle daha stabil çalışan Elektrona platformuna aktardım. Programa her kesimden oyuncular rahatlıkla erişebilsin diye fiyatını makul tuttum. Lütfen satın aldığınız programı başkalarıyla paylaşmayınız. Para ile satılamaz.",
+        introText: "2.Kademe Satranç Antrenörü olarak, yeni başlayan ve orta seviyedeki oyuncuların yüksek maliyetli satranç programlarına erişmekte zorlandığını gözlemledim. Ayrıca mevcut birçok yazılımın, kullanıcıların ihtiyaç duymadığı karmaşık ve gereksiz özellikler içerdiğini fark ettim. Web tasarımıyla da ilgilendiğim için başlangıçta web tabanlı bir çözüm geliştirdim. Ancak zamanla tarayıcı kaynaklı önbellek (cache) sorunları nedeniyle daha stabil ve sorunsuz bir deneyim sunmak adına projeyi Electron platformuna taşıdım. Amacım; her seviyeden satranç oyuncusunun kolayca kullanabileceği, sade, işlevsel ve erişilebilir bir program sunmaktı. Bu doğrultuda yazılımın fiyatını mümkün olduğunca makul seviyede tuttum. Emeğe saygı göstermenizi rica ederim. Lütfen satın aldığınız programı başkalarıyla paylaşmayınız.",
         view: "İncele",
         buy: "Satın Al",
         helperTitle: "🛠️ Yardımcı Programlar",
@@ -334,8 +359,9 @@ const translations = {
     en: {
         langBtn: "TR",
         readmeLink: "📖 Guide",
+        mailBtn: "✉️ info@chesseapp.com.tr",
         introTitle: "How Did the Idea of Building This Chess Software Come About?",
-        introText: "I am a certified chess coach. I noticed that beginner and intermediate players have limited access to expensive chess software. I also realized that many of these programs include unnecessary features for most players. Since I also develop web applications, I first created a web-based version. However, due to 'cache' issues in browsers, I later migrated the project to the Electron platform for better stability. I kept the price affordable so that players from all levels can access it easily. Please do not share the software after purchase. It cannot be resold or distributed.",
+        introText: "As a certified Level 2 Chess Coach, I observed that beginner and intermediate players often struggle to access high-priced chess software. I also noticed that many existing programs include overly complex and unnecessary features that most players simply do not need. Since I also have a background in web design, I initially developed a web-based solution. However, due to browser-related cache issues, I decided to move the project to the Electron platform in order to provide a more stable and reliable user experience. My goal was to create a simple, functional, and accessible program that players of all levels can easily use. With this in mind, I have kept the price as affordable as possible. I kindly ask you to respect the effort behind this project. Please do not share the software with others after purchase.",
         view: "View",
         buy: "Buy",
         helperTitle: "🛠️ Utilities",
@@ -378,6 +404,7 @@ function applyLang() {
 
     // Readme link
     document.getElementById("readmeLink").innerText = t.readmeLink;
+    document.getElementById("mailBtn").innerText = t.mailBtn;
 
     // Intro
     document.getElementById("introTitle").innerText = t.introTitle;
@@ -420,11 +447,6 @@ applyLang();
 function openPage(page) {
     window.open(page, '_blank');
 }
-
-function buyProduct() {
-    window.open('https://yasareker.gumroad.com/l/uczvg', '_blank');
-}
 </script>
-
 </body>
 </html>

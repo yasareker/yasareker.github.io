@@ -252,7 +252,7 @@
                 <ul class="positive" id="positiveList"></ul>
                 <ul class="negative" id="negativeList"></ul>
             </div>
-            <button class="buy-btn" onclick="window.open('https://yasareker.gumroad.com/l/uczvg', '_blank')" id="buyBtn"></button>
+            <button class="buy-btn" onclick="window.open('https://yasareker.gumroad.com/l/didyz', '_blank')" id="buyBtn"></button>
         </div>
     </div>
 </div>
@@ -274,7 +274,7 @@ const translations = {
     tr: {
         langBtn: "EN",
         introTitle: "AÇIKLAMALAR",
-        introText: "Bu yazılım web tabanlı olup elektrona aktarılmıştır. Windows 10-11-12'de çalışır. İşletim sisteminizde electronun çalışıp çalışmadığını kontrol ediniz. Ofline çalışır ancak Online oyunlar için İnternete ihtiyacı vardır. Para ile satılamaz. Üçüncü şahıslara dağıtılamaz.",
+        introText: "Bu yazılım, başlangıçta web tabanlı olarak geliştirilmiş olup daha stabil ve sorunsuz bir kullanım deneyimi sunmak amacıyla Electron platformuna aktarılmıştır. Windows 10, 11 ve 12 işletim sistemleri ile uyumludur. Lütfen işletim sisteminizin Electron tabanlı uygulamaları desteklediğinden emin olunuz. Yazılım çevrimdışı (offline) olarak çalışabilmektedir. Ancak çevrimiçi oyun özelliklerinden faydalanabilmek için internet bağlantısı gereklidir. Veritabanı oyunlarını kullanabilmek için Lichess üzerinden kişisel bir API token almanız gerekmektedir. Token oluşturmak için: <a href=\"https://lichess.org/account/oauth/token\" target=\"_blank\" style=\"color:#1abc9c;\">https://lichess.org/account/oauth/token</a> Bu yazılım yalnızca kişisel kullanım içindir. Ücret karşılığında satılamaz ve üçüncü şahıslarla paylaşılamaz.",
         featTitle: "Özellikler & Kısıtlamalar",
         buyBtn: "Satın Al",
         positive: [
@@ -302,7 +302,7 @@ const translations = {
     en: {
         langBtn: "TR",
         introTitle: "DESCRIPTION",
-        introText: "This software is web-based and has been ported to Electron. It runs on Windows 10-11-12. Please check whether Electron works on your operating system. It works offline, but requires an internet connection for online games. It cannot be sold for money. It cannot be distributed to third parties.",
+        introText: "This software was originally developed as a web-based application and later adapted to the Electron platform for improved stability. It is compatible with Windows 10, 11, and 12. Please make sure that your operating system supports Electron-based applications. The software works offline. However, an internet connection is required for online gameplay features. For accessing and using the game database features, you need to obtain a personal API token from Lichess. You can generate your token here: <a href=\"https://lichess.org/account/oauth/token\" target=\"_blank\" style=\"color:#1abc9c;\">https://lichess.org/account/oauth/token</a> This software is licensed for personal use only. It may not be resold or distributed to third parties.",
         featTitle: "Features & Limitations",
         buyBtn: "Buy Now",
         positive: [
@@ -337,7 +337,7 @@ function applyLang() {
     document.documentElement.lang = currentLang;
     document.getElementById("langBtn").innerText = t.langBtn;
     document.getElementById("introTitle").innerText = t.introTitle;
-    document.getElementById("introText").innerText = t.introText;
+    document.getElementById("introText").innerHTML = t.introText;
     document.getElementById("featTitle").innerText = t.featTitle;
     document.getElementById("buyBtn").innerText = t.buyBtn;
 
