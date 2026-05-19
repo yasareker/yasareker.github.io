@@ -267,11 +267,11 @@
         </div>
 
         <div class="card">
-            <img src="./img/ver2.png" alt="Chesse v2" class="card-img">
+            <img src="./img/omodu.png" alt="Chesse v2" class="card-img">
             <h3 id="c2"></h3>
             <p id="c2d"></p>
             <div class="buttons">
-                <button class="btn btn-view" onclick="openPage('chesse v2.html')" id="view2"></button>
+                <button class="btn btn-view" onclick="openPage('openings.html')" id="view2"></button>
                 <button class="btn btn-buy" onclick="window.open('https://yasareker.gumroad.com/l/didyz', '_blank')" id="buy2"></button>
             </div>
         </div>
@@ -309,6 +309,12 @@
             <p id="h3text"></p>
             <a href="yardmcevir.html" target="_blank" id="h3link"></a>
         </div>
+
+        <div class="helper-item">
+            <h3 id="h4title"></h3>
+            <p id="h4text"></p>
+            <a href="openings.html" target="_blank" id="h4link"></a>
+        </div>
     </div>
 
 </div>
@@ -333,7 +339,7 @@ const translations = {
         helperTitle: "🛠️ Yardımcı Programlar",
         cards: [
             ["Chesse v.1", "PGN analiz aracı"],
-            ["Chesse v.2", "PGN inceleme, Engine analizi, Tree, Açılış öğren, Quiz"],
+            ["ChesseApp", "Dersler · Quiz · Açılışlar · Motor Analizi · Öğretmen Modu · Ödev Raporu"],
             ["Chesse v.3", "PGN inceleme, Engine analizi, Tree, Açılış öğren, Quiz"]
         ],
         helpers: [
@@ -353,6 +359,11 @@ const translations = {
                 title: "3. Çeviri Yapma",
                 text: "Bu yazılım sadece web sayfalarında (Mozilla - Edge - Chrome vs.) çalışır. PGN'deki oyunları istediğiniz dile çevirmek için kullanılır. Çeviri yaparken web sayfanızda kurulu bulunan translatör uzantılarına ihtiyacı vardır. PGN'deki oyunları yükledikten sonra uzantılardan istediğiniz dildeki çevirme butonuna basınız. (Google Translatör önerilir) Her oyunun yorumları ayrı ayrı çevrilir. Dilinize bir oyun çevrildikten sonra kaydet e basınız. 2. oyun otomotik gelir ve çevrilir. tüm oyunları bu şekilde kaydettikten sonra pgn indir butonuna basınız. Oyunlar istediğiniz dile çevrilmiş ve geri birleştirilmiş şekilde iner. Para ile satılamaz. Üçüncü şahıslara dağıtılamaz.",
                 link: "İncele"
+            },
+            {
+                title: "4. İnteraktif Eğitim Kursları",
+                text: "Açılış teorisi, usta oyunları, quiz ve tahmin modu içeren interaktif ders paketi. Hamleleri tıklayarak veya sürükleyerek oynayın, bilgisayara karşı analiz yapın.",
+                link: "İncele"
             }
         ]
     },
@@ -367,7 +378,7 @@ const translations = {
         helperTitle: "🛠️ Utilities",
         cards: [
             ["Chess PGN Viewer", "PGN analysis tool"],
-            ["Chesse v.2", "PGN review, Engine analysis, Tree, Opening learn, Quiz"],
+            ["ChesseApp", "Lessons · Quizzes · Openings · Engine Analysis · Teacher Mode · Activity Report"],
             ["Chesse v.3", "PGN review, Engine analysis, Tree, Opening learn, Quiz"]
         ],
         helpers: [
@@ -385,6 +396,11 @@ const translations = {
             {
                 title: "3. Translation",
                 text: "This software only works in web browsers (Mozilla - Edge - Chrome etc.). It is used to translate games in PGN to the desired language. It requires translator extensions installed on your web page. After loading games from PGN, press the translation button in the desired language from the extensions. (Google Translate is recommended) The comments of each game are translated separately. After a game is translated into your language, press save. The 2nd game comes automatically and is translated. After saving all games this way, press the download pgn button. Games download translated into the desired language and merged back. Cannot be sold for money. Cannot be distributed to third parties.",
+                link: "View"
+            },
+            {
+                title: "4. Interactive Training Courses",
+                text: "An interactive lesson package with opening theory, master games, quiz and guess mode. Play moves by clicking or dragging, analyse positions with the engine.",
                 link: "View"
             }
         ]
@@ -422,7 +438,7 @@ function applyLang() {
     document.getElementById("helperTitle").innerText = t.helperTitle;
 
     // Helper items
-    for (let i = 1; i <= 3; i++) {
+    for (let i = 1; i <= 4; i++) {
         const h = t.helpers[i-1];
         document.getElementById("h" + i + "title").innerText = h.title;
         document.getElementById("h" + i + "text").innerText = h.text;
