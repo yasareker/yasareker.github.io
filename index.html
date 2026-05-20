@@ -270,9 +270,8 @@
             <img src="./img/omodu.png" alt="Chesse v2" class="card-img">
             <h3 id="c2"></h3>
             <p id="c2d"></p>
-            <div class="buttons">
+            <div class="buttons" style="justify-content: center;">
                 <button class="btn btn-view" onclick="openPage('openings.html')" id="view2"></button>
-                <button class="btn btn-buy" onclick="window.open('https://yasareker.gumroad.com/l/didyz', '_blank')" id="buy2"></button>
             </div>
         </div>
 
@@ -431,7 +430,8 @@ function applyLang() {
         document.getElementById("c" + i).innerText = t.cards[i-1][0];
         document.getElementById("c" + i + "d").innerText = t.cards[i-1][1];
         document.getElementById("view" + i).innerText = t.view;
-        document.getElementById("buy" + i).innerText = t.buy;
+        const buyEl = document.getElementById("buy" + i);
+        if (buyEl) buyEl.innerText = t.buy;
     }
 
     // Helper section title
