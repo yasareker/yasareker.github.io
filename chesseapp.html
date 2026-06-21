@@ -327,6 +327,9 @@
 
         <div class="feature-right">
             <h2 id="featTitle"></h2>
+            <div style="margin-bottom:16px;">
+                <img src="./img/scr1.jpg" alt="" style="display:block;width:100%;max-height:320px;object-fit:cover;object-position:center 35%;border-radius:12px;box-shadow:0 6px 20px rgba(0,0,0,0.5);">
+            </div>
             <ul id="featureList"></ul>
             <div style="margin-top:18px;padding-top:14px;border-top:1px solid rgba(26,188,156,0.3);">
                 <div style="color:#1abc9c;font-size:13px;font-weight:bold;letter-spacing:1px;text-transform:uppercase;margin-bottom:8px;" id="courseTitle"></div>
@@ -335,6 +338,14 @@
             <div style="margin-top:18px;padding-top:14px;border-top:1px solid rgba(26,188,156,0.3);">
                 <div style="color:#1abc9c;font-size:13px;font-weight:bold;letter-spacing:1px;text-transform:uppercase;margin-bottom:8px;" id="reportTitle2"></div>
                 <ul id="reportList2" style="list-style:none;padding:0;margin:0;"></ul>
+            </div>
+            <div style="margin-top:18px;padding-top:14px;border-top:1px solid rgba(26,188,156,0.3);">
+                <div style="color:#1abc9c;font-size:13px;font-weight:bold;letter-spacing:1px;text-transform:uppercase;margin-bottom:8px;" id="endgameTitle"></div>
+                <ul id="endgameList" style="list-style:none;padding:0;margin:0;"></ul>
+            </div>
+            <div style="margin-top:18px;padding-top:14px;border-top:1px solid rgba(26,188,156,0.3);">
+                <div style="color:#1abc9c;font-size:13px;font-weight:bold;letter-spacing:1px;text-transform:uppercase;margin-bottom:8px;" id="matchTitle"></div>
+                <ul id="matchList" style="list-style:none;padding:0;margin:0;"></ul>
             </div>
         </div>
     </div>
@@ -427,7 +438,7 @@ const translations = {
         ],
         courseTitle: "📚 Kurslar",
         courseItems: [
-            "11 kurs program ile birlikte ücretsiz verilir",
+            "12 kurs program ile birlikte ücretsiz verilir",
             "Tüm kurs içerikleri Türkçedir"
         ],
         reportTitle2: "📊 Etkinlik Raporu",
@@ -436,6 +447,20 @@ const translations = {
             "Verilen ödevleri rapordan kontrol edin",
             "Ödevin yapılıp yapılmadığına dair geri dönüt alın",
             "Raporu veli ile paylaşın",
+            "Sadece Android'de kullanılabilir"
+        ],
+        endgameTitle: "🏁 Oyunsonu Çalış",
+        endgameItems: [
+            "Temel oyun sonu pozisyonlarını adım adım öğren",
+            "Her pozisyon için açıklama ve hedef",
+            "Varyant ve kategoriler arasında kolay geçiş",
+            "İstersen pozisyonu motora karşı oynayarak pekiştir"
+        ],
+        matchTitle: "🌐 Karşılıklı ya da Online Oyna",
+        matchItems: [
+            "Arkadaşınla karşılıklı veya online satranç maçı yap",
+            "Davet kodu ile anında bağlan, kurulum gerektirmez",
+            "Süreli (saatli) oyun deneyimi",
             "Sadece Android'de kullanılabilir"
         ],
         buyBtn: "Satın Al",
@@ -491,7 +516,7 @@ const translations = {
         ],
         courseTitle: "📚 Courses",
         courseItems: [
-            "11 courses included free with the program",
+            "12 courses included free with the program. Lang:TR",
             "All course content is in Turkish"
         ],
         reportTitle2: "📊 Activity Report",
@@ -500,6 +525,20 @@ const translations = {
             "Check assigned homework directly from the report",
             "Get feedback on whether the homework was completed",
             "Share the report with parents",
+            "Available on Android only"
+        ],
+        endgameTitle: "🏁 Study Endgames",
+        endgameItems: [
+            "Learn key endgame positions step by step",
+            "Description and goal for each position",
+            "Easily switch between variants and categories",
+            "Reinforce your skills by playing it out against the engine"
+        ],
+        matchTitle: "🌐Play Together or Online",
+        matchItems: [
+            "Play chess matches with a friend — in person or online",
+            "Connect instantly with an invite code, no setup required",
+            "Timed match experience",
             "Available on Android only"
         ],
         buyBtn: "Buy Now",
@@ -561,6 +600,24 @@ function applyLang() {
         li.style.cssText = "padding:6px 0;border-bottom:1px solid rgba(255,255,255,0.05);color:#c8e0dc;font-size:13px;";
         li.innerHTML = "📌 " + item;
         reportList2.appendChild(li);
+    });
+    document.getElementById("endgameTitle").innerText = t.endgameTitle;
+    const endgameList = document.getElementById("endgameList");
+    endgameList.innerHTML = "";
+    t.endgameItems.forEach(item => {
+        const li = document.createElement("li");
+        li.style.cssText = "padding:6px 0;border-bottom:1px solid rgba(255,255,255,0.05);color:#c8e0dc;font-size:13px;";
+        li.innerHTML = "🏁 " + item;
+        endgameList.appendChild(li);
+    });
+    document.getElementById("matchTitle").innerText = t.matchTitle;
+    const matchList = document.getElementById("matchList");
+    matchList.innerHTML = "";
+    t.matchItems.forEach(item => {
+        const li = document.createElement("li");
+        li.style.cssText = "padding:6px 0;border-bottom:1px solid rgba(255,255,255,0.05);color:#c8e0dc;font-size:13px;";
+        li.innerHTML = "🌐 " + item;
+        matchList.appendChild(li);
     });
 
     const list = document.getElementById("featureList");
