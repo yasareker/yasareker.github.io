@@ -311,10 +311,10 @@ const translations = {
             "Lichess oyun veritabanı",
             "PGN yükleyerek soru çözme",
             "Lichess sorularına ulaşma",
-            "Satranç ağacı sadece .bin ve .json uzantılıdır"
+            "Satranç ağacı sadece .ctg, .bin ve .json uzantılıdır<br><a href=\"https://www.hiarcs.com/book-downloads/H12Book.zip\" target=\"_blank\" style=\"color:#1abc9c;\">Download HIARCS 12 CTG Book</a><br><a href=\"https://www.hiarcs.com/chess-opening-book-free.html\" target=\"_blank\" style=\"color:#1abc9c;\">https://www.hiarcs.com/chess-opening-book-free.html</a>"
+           
         ],
         negative: [
-            "ctg uzantılı Satranç Ağacı",
             "Cbh, cbz vb."
         ],
         tmTitle: "👨‍🏫 Öğretmen Modu",
@@ -354,10 +354,9 @@ const translations = {
             "Lichess game database",
             "Solve puzzles by loading PGN",
             "Access Lichess puzzles",
-            "Chess tree is .bin & .json format only"
+            "Chess tree is .ctg, .bin & .json format only<br><a href=\"https://www.hiarcs.com/book-downloads/H12Book.zip\" target=\"_blank\" style=\"color:#1abc9c;\">Download HIARCS 12 CTG Book</a><br><a href=\"https://www.hiarcs.com/chess-opening-book-free.html\" target=\"_blank\" style=\"color:#1abc9c;\">https://www.hiarcs.com/chess-opening-book-free.html</a>"
         ],
         negative: [
-            "ctg, Chess Tree formats",
             "Cbh, cbz etc."
         ],
         tmTitle: "👨‍🏫 Teacher Mode",
@@ -393,7 +392,7 @@ function applyLang() {
     posList.innerHTML = "";
     t.positive.forEach(item => {
         const li = document.createElement("li");
-        li.innerText = item;
+        li.innerHTML = item;
         posList.appendChild(li);
     });
 
