@@ -242,6 +242,12 @@
     top: .35em;
   }
 
+  ol.steps { margin: 0 0 16px 22px; padding: 0; }
+  ol.steps li { font-size: .93rem; color: var(--text2); margin-bottom: 8px; line-height: 1.65; padding-left: 4px; }
+  ol.steps li::marker { color: var(--accent); font-weight: 600; }
+  ol.steps ul { margin: 6px 0 0 0; }
+  ol.steps ul li { padding-left: 20px; margin-bottom: 5px; }
+
   .tbl-wrap { overflow-x: auto; margin: 16px 0 24px; border-radius: 8px; border: 1px solid var(--border); }
   table { width: 100%; border-collapse: collapse; }
   thead tr { background: var(--bg3); }
@@ -402,7 +408,7 @@
     <p id="sb-sub" style="font-size:1rem;color:var(--text2);margin-bottom:4px;"></p>
     <p id="sb-desc"></p>
     <div class="hero-tags">
-      <span class="htag">Web & Electron</span>
+      <span class="htag">Masaüstü (Electron)</span>
       <span class="htag">Stockfish</span>
       <span class="htag" id="tag-tree"></span>
       <span class="htag">NAG</span>
@@ -437,7 +443,7 @@ const T = {
     tagQuiz: "Quiz Modu",
     heroBadge: "KULLANIM KILAVUZU",
     heroTitle: "Chesse <span>Rehberi</span>",
-    heroDesc: "PGN formatındaki satranç oyunlarını yükleyin, analiz edin, yorumlayın ve motorla oynayın. Web tarayıcısı ve Electron masaüstü uygulaması olarak çalışır.",
+    heroDesc: "PGN ve ChessBase formatındaki satranç oyunlarını yükleyin, analiz edin, yorumlayın, motorla oynayın ve kitaplardaki diyagramları tarayın. Windows masaüstü uygulamasıdır.",
     nav: [
       { label: "Genel Bakış", href: "#overview", icon: "♟" },
       { label: "Arayüz", href: "#interface", icon: "🖥" },
@@ -447,32 +453,40 @@ const T = {
       { label: "Navigasyon", href: "#navigation", icon: "🧭" },
       { label: "Yorumlar & Semboller", href: "#comments", icon: "💬" },
       { label: "FEN İşlemleri", href: "#fen", icon: "🔢" },
+      { label: "PDF / Resimden Tarama", href: "#pdf-scan", icon: "📄" },
       { label: "Motor Analizi", href: "#engine", icon: "⚙️" },
       { label: "Motorla Oynama", href: "#play", icon: "🎮" },
       { label: "Quiz Modu", href: "#quiz", icon: "🔍" },
+      { label: "Öğretmen Modu", href: "#teacher", icon: "👨‍🏫" },
       { label: "PGN Kaydetme", href: "#save", icon: "💾" },
-      { label: "Electron Özellikleri", href: "#electron", icon: "🖥️" },
+      { label: "Masaüstü Özellikleri", href: "#electron", icon: "🖥️" },
       { label: "Klavye Kısayolları", href: "#shortcuts", icon: "⌨️" },
       { label: "Lichess Veritabanı", href: "#lichess", icon: "🌐" },
+      { label: "Açılış Kitapları", href: "#books", icon: "📖" },
       { label: "Sık Sorulan Sorular", href: "#faq", icon: "❓" },
       { label: "Teşekkürler", href: "#credits", icon: "🏆" },
       { label: "Ağaç Oluşturma", href: "#tree-builder", icon: "🌳" },
+      { label: "ChesseApp", href: "#chesseapp", icon: "🎓" },
     ],
     content: `
     <div class="section" id="overview">
       <div class="section-title"><span class="section-num">01</span><h2>Genel Bakış</h2></div>
-      <p>Chesse; PGN (Portable Game Notation) formatındaki satranç oyunlarını yükleyip analiz etmenizi, varyantları gezmenizi, motor analizleri yapmanızı ve yorumlarla zenginleştirilmiş oyunları kaydetmenizi sağlar. Web tarayıcısında ve Electron masaüstü uygulaması olarak çalışır.</p>
+      <p>Chesse; PGN (Portable Game Notation) formatındaki satranç oyunlarını yükleyip analiz etmenizi, varyantları gezmenizi, motor analizleri yapmanızı ve yorumlarla zenginleştirilmiş oyunları kaydetmenizi sağlar. Windows masaüstü uygulaması olarak çalışır.</p>
       <div class="feature-grid">
         <div class="feat-card" onclick="scrollToSection('loading')"><div class="feat-icon">📂</div><div class="feat-title">PGN Yükleme</div><div class="feat-desc">Dosya veya yapıştırma — tek ve çok oyunlu</div></div>
         <div class="feat-card" onclick="scrollToSection('board')"><div class="feat-icon">♟</div><div class="feat-title">İnteraktif Tahta</div><div class="feat-desc">Tıklama veya sürükle-bırak ile hamle yapma</div></div>
         <div class="feat-card" onclick="scrollToSection('navigation')"><div class="feat-icon">🌳</div><div class="feat-title">Varyant Ağacı</div><div class="feat-desc">İç içe varyantları görüntüleme ve gezinme</div></div>
         <div class="feat-card" onclick="scrollToSection('engine')"><div class="feat-icon">⚙️</div><div class="feat-title">Motor Analizi</div><div class="feat-desc">Stockfish entegrasyonu ile pozisyon değerlendirmesi</div></div>
-        <div class="feat-card" onclick="scrollToSection('play')"><div class="feat-icon">🎮</div><div class="feat-title">Motorla Oynama</div><div class="feat-desc">Bilgisayara karşı beyaz veya siyah oynama</div></div>
+        <div class="feat-card" onclick="scrollToSection('play')"><div class="feat-icon">🎮</div><div class="feat-title">Motorla Oynama</div><div class="feat-desc">Motora karşı serbest veya saatli maç</div></div>
         <div class="feat-card" onclick="scrollToSection('comments')"><div class="feat-icon">💬</div><div class="feat-title">Yorum & Semboller</div><div class="feat-desc">Hamlelere metin yorumu ve NAG sembolleri ekleme</div></div>
         <div class="feat-card" onclick="scrollToSection('quiz')"><div class="feat-icon">🔍</div><div class="feat-title">Quiz Modu</div><div class="feat-desc">PGN içindeki bulmacaları çözme</div></div>
-        <div class="feat-card" onclick="scrollToSection('library')"><div class="feat-icon">📚</div><div class="feat-title">PGN Kütüphanesi</div><div class="feat-desc">Yüklenen PGN'leri oturum boyunca saklama</div></div>
+        <div class="feat-card" onclick="scrollToSection('library')"><div class="feat-icon">📚</div><div class="feat-title">PGN Kütüphanesi</div><div class="feat-desc">Yüklenen PGN'leri saklama ve birleştirme</div></div>
         <div class="feat-card" onclick="scrollToSection('engine-ext')"><div class="feat-icon">🔌</div><div class="feat-title">Harici Motor</div><div class="feat-desc">UCI uyumlu kendi motorunuzu ekleme</div></div>
         <div class="feat-card" onclick="scrollToSection('save')"><div class="feat-icon">💾</div><div class="feat-title">PGN Kaydetme</div><div class="feat-desc">Yorumlar ve varyantlarla birlikte dışa aktarma</div></div>
+        <div class="feat-card" onclick="scrollToSection('pdf-scan')"><div class="feat-icon">📄</div><div class="feat-title">PDF / Resimden Tarama</div><div class="feat-desc">Kitaptaki diyagramı okutup pozisyon olarak aktarma</div></div>
+        <div class="feat-card" onclick="scrollToSection('teacher')"><div class="feat-icon">👨‍🏫</div><div class="feat-title">Öğretmen Modu</div><div class="feat-desc">Sınıfta göstermek için sade, ayrı pencere</div></div>
+        <div class="feat-card" onclick="scrollToSection('loading')"><div class="feat-icon">🗄️</div><div class="feat-title">ChessBase Desteği</div><div class="feat-desc">.cbh veritabanlarını yorumlarıyla açma</div></div>
+        <div class="feat-card" onclick="scrollToSection('books')"><div class="feat-icon">📖</div><div class="feat-title">Açılış Kitapları</div><div class="feat-desc">.json, Polyglot (.bin) ve ChessBase (.ctg)</div></div>
       </div>
     </div>
 
@@ -483,76 +497,113 @@ const T = {
         <thead><tr><th>Panel</th><th>İçerik</th></tr></thead>
         <tbody class="td-normal">
           <tr><td>Sol Panel</td><td>Satranç tahtası, navigasyon butonları, motor çubuğu ve araç çubuğu</td></tr>
-          <tr><td>Sağ Panel</td><td>Sekmeli görünüm: Oyunlar listesi, Hamle ağacı, PGN notasyonu</td></tr>
+          <tr><td>Sağ Panel</td><td>Sekmeli görünüm: Ana (PGN Kütüphanesi), Oyunlar, Ağaç, PGN</td></tr>
         </tbody>
       </table></div>
       <h3>Sekmeler (Sağ Panel)</h3>
       <ul>
-        <li><strong>🎮 Oyunlar —</strong> Yüklenen PGN'deki tüm oyunların listesi.</li>
-        <li><strong>🌳 Ağaç —</strong> Mevcut oyunun hamle ağacı.</li>
-        <li><strong>📄 PGN —</strong> Notasyon görünümü.</li>
+        <li><strong>📚 Ana —</strong> PGN Kütüphanesi (açtığınız dosyalar).</li>
+        <li><strong>🎮 Oyunlar —</strong> Açık dosyadaki tüm oyunların listesi.</li>
+        <li><strong>🌳 Ağaç —</strong> Açılış ağacı, Lichess usta oyunları ve açılış kitapları.</li>
+        <li><strong>📖 PGN —</strong> Mevcut oyunun notasyonu, yorumları ve varyantları.</li>
       </ul>
-      <h3>Araç Çubuğu Butonları</h3>
+      <h3>Üst Çubuk</h3>
       <div class="tbl-wrap"><table>
         <thead><tr><th>Buton</th><th>Açıklama</th></tr></thead>
         <tbody>
-          <tr><td>⚙️ Ayarlar</td><td>Motor ayarlarını açar</td></tr>
-          <tr><td>💬 Yorum</td><td>Mevcut hamleye metin yorumu ekler <kbd>C</kbd></td></tr>
-          <tr><td>♟ Sembol</td><td>NAG sembol menüsünü açar</td></tr>
-          <tr><td>📋 FEN Kopyala</td><td>Mevcut pozisyonun FEN kodunu panoya kopyalar</td></tr>
-          <tr><td>📥 FEN Yapıştır</td><td>Panodan FEN yükler <kbd>Ctrl+Shift+F</kbd></td></tr>
-          <tr><td>💾 PGN Kaydet</td><td>Oyunu yorumlar ve varyantlarla .pgn olarak kaydeder</td></tr>
-          <tr><td>🗑 Sıfırla</td><td>Tahtayı ve tüm hamleleri sıfırlar</td></tr>
-          <tr><td>👁 Yorumlar</td><td>Yorumları göster/gizle</td></tr>
-          <tr><td>📖 Kılavuz</td><td>Bu sayfayı açar</td></tr>
+          <tr><td>PGN Yükle</td><td>PGN veya ChessBase (.cbh) dosyası açar</td></tr>
+          <tr><td>📋</td><td>Mevcut oyunu var olan bir PGN dosyasına ekler</td></tr>
+          <tr><td>Notasyon</td><td>Notasyon panelini gizler / gösterir</td></tr>
+          <tr><td>EN / TR</td><td>Arayüz dilini değiştirir</td></tr>
+          <tr><td>Tema Seç</td><td>Programın renk temasını seçer (8 tema)</td></tr>
         </tbody>
       </table></div>
-      <h3>Navigasyon Butonları</h3>
+      <h3>Tahtanın Altındaki Butonlar</h3>
       <div class="tbl-wrap"><table>
         <thead><tr><th>Buton</th><th>İşlev</th></tr></thead>
         <tbody>
           <tr><td>⏮</td><td>Başa git</td></tr>
-          <tr><td>◀</td><td>Bir hamle geri</td></tr>
-          <tr><td>▶</td><td>Bir hamle ileri</td></tr>
+          <tr><td>◀️</td><td>Bir hamle geri</td></tr>
+          <tr><td>⏯️</td><td>Otomatik oynat / durdur</td></tr>
+          <tr><td>▶️</td><td>Bir hamle ileri</td></tr>
           <tr><td>⏭</td><td>Sona git</td></tr>
-          <tr><td>⏭⏭</td><td>Ana hatta son hamleye git</td></tr>
+          <tr><td>🤖</td><td>Motorla maç yap (<a href="#play" style="color:var(--accent2)">ayrıntılar</a>)</td></tr>
+          <tr><td>🔁</td><td>Tekrar Modu — oyunu hamle hamle tahmin ederek tekrar edin</td></tr>
+          <tr><td>Öğretmen</td><td>Öğretmen Modu'nu açar (<a href="#teacher" style="color:var(--accent2)">ayrıntılar</a>)</td></tr>
         </tbody>
       </table></div>
+      <h3>Araç Çubuğu</h3>
+      <div class="tbl-wrap"><table>
+        <thead><tr><th>Buton</th><th>Açıklama</th></tr></thead>
+        <tbody>
+          <tr><td>⚙️</td><td>Stockfish analizini başlatır / durdurur</td></tr>
+          <tr><td>🆕</td><td>Tahtayı sıfırlar <kbd>Ctrl+R</kbd></td></tr>
+          <tr><td>💬</td><td>Mevcut hamleye yorum ekler <kbd>C</kbd></td></tr>
+          <tr><td>Yorumlar</td><td>Yorumları gizler / gösterir</td></tr>
+          <tr><td>!!±</td><td>Sembol (NAG) ekler</td></tr>
+          <tr><td>FEN</td><td>Pozisyonu kopyalar / yapıştırır</td></tr>
+          <tr><td>Oyunu Yapıştır</td><td>Panodaki PGN metnini oyun olarak açar</td></tr>
+          <tr><td>💾</td><td>Oyunu PGN olarak kaydeder</td></tr>
+          <tr><td>💾 (turuncu)</td><td>Dosyadan açılmış oyunu aynı PGN dosyasına kaydeder (yalnızca bu durumda görünür)</td></tr>
+          <tr><td>🎨</td><td>Görünüm Ayarları: tahta ve taş stili, notasyon fontu ve boyutu, Aa / ♞</td></tr>
+          <tr><td>🎡</td><td>Quiz Modu</td></tr>
+          <tr><td>🔍</td><td>Oyunu motorla analiz eder</td></tr>
+          <tr><td>⏱️</td><td>Motorla saatli maç</td></tr>
+          <tr><td>📰</td><td>PDF'den konum tara (<a href="#pdf-scan" style="color:var(--accent2)">ayrıntılar</a>)</td></tr>
+          <tr><td>📷</td><td>Resimden konum tara</td></tr>
+          <tr><td>🔳</td><td>Tam ekran</td></tr>
+          <tr><td>📖</td><td>Bu kılavuzu açar</td></tr>
+        </tbody>
+      </table></div>
+      <h3>Görünüm</h3>
+      <ul>
+        <li><strong>Tema Seç</strong> ile 8 renk teması arasından seçim yapabilirsiniz: Koyu, Arduvaz, Bej, Haki, Açık, Nane, Buz, Parşömen.</li>
+        <li><strong>🎨 Görünüm Ayarları</strong>'nda tahta ve taş stilini, notasyon fontunu ve boyutunu değiştirebilirsiniz. <strong>Aa / ♞</strong> düğmeleriyle notasyonda taşlar harfle (Nf3) ya da figürle (♘f3) gösterilir; bu tercih Öğretmen Modu'nda da geçerlidir.</li>
+      </ul>
     </div>
 
     <div class="section" id="loading">
       <div class="section-title"><span class="section-num">03</span><h2>PGN Yükleme</h2></div>
       <h3>Dosyadan Yükleme</h3>
       <ul>
-        <li><strong>Web:</strong> "PGN Dosyası Seç" butonuna tıklayın ve <code>.pgn</code> dosyasını seçin.</li>
-        <li><strong>Electron:</strong> Dosya → Aç menüsünü kullanın veya PGN Yükle butonu ile açın.</li>
+        <li>Üst çubuktaki <strong>PGN Yükle</strong> butonu veya Dosya → Aç menüsü ile <code>.pgn</code> dosyasını seçin.</li>
+        <li>Bilgisayarınızdaki bir <code>.pgn</code> dosyasına <strong>çift tıklayarak</strong> da doğrudan Chesse'de açabilirsiniz.</li>
       </ul>
       <h3>Başka Programlardan Oyun Yükleme</h3>
       <ul>
-        <li>PGN metnini kopyalayın ve "Oyunu Yapıştır" butonuna tıklayın.</li>
+        <li>PGN metnini kopyalayın ve araç çubuğundaki <strong>Oyunu Yapıştır</strong> butonuna tıklayın.</li>
         <li>Tek oyunlu veya çok oyunlu PGN'ler desteklenir.</li>
       </ul>
       <h3>Desteklenen PGN Başlıkları</h3>
       <pre><code>Event  Site  Date  White  Black  Result
 Round  ECO   WhiteElo  BlackElo  FEN</code></pre>
       <div class="callout"><span class="callout-icon">♟</span><span><strong>FEN başlığı:</strong> Varsa tahta o pozisyondan başlar. Siyahın sırası ise tahta otomatik çevrilir.</span></div>
+      <h3>ChessBase Veritabanı (.cbh)</h3>
+      <ul>
+        <li>PGN açar gibi <code>.cbh</code> dosyasını seçin; oyunlar <strong>Oyunlar</strong> sekmesinde PGN gibi listelenir, varyantlar ve yorumlar dahil oynatılır.</li>
+        <li>Aynı klasörde veritabanının diğer dosyaları (<code>.cbg</code>, <code>.cbp</code>, <code>.cbt</code>; yorumlar için <code>.cba</code>) bulunmalıdır.</li>
+        <li>ChessBase veritabanları yalnızca okunur; değişikliklerinizi PGN olarak kaydedebilirsiniz.</li>
+      </ul>
       <h3>Çok Oyunlu PGN</h3>
       <ul>
         <li>Oyunlar sağ paneldeki <strong>Oyunlar</strong> sekmesinde listelenir.</li>
         <li><kbd>N</kbd> ile sonraki, <kbd>B</kbd> ile önceki oyuna geçilir.</li>
+        <li><strong>ECO araması:</strong> Oyunlar listesindeki ECO sütununun kutusuna bir kod yazarak (ör. <code>C</code> veya <code>C33</code>) listeyi süzebilirsiniz. Sonraki/önceki oyun geçişleri süzülmüş listeye göre yapılır; yeni bir PGN açıldığında süzgeç sıfırlanır.</li>
+        <li>Çok büyük dosyalarda ilk <strong>100.000</strong> oyun listelenir.</li>
       </ul>
     </div>
 
     <div class="section" id="library">
       <div class="section-title"><span class="section-num">03b</span><h2>PGN Kütüphanesi</h2></div>
-      <p>PGN Kütüphanesi, yüklediğiniz PGN dosyalarını oturum boyunca saklayan bir bölümdür. Sağ panelin <strong>Ana</strong> sekmesinde yer alır.</p>
+      <p>PGN Kütüphanesi, yüklediğiniz PGN dosyalarını saklayan bir bölümdür. Sağ panelin <strong>Ana</strong> sekmesinde yer alır.</p>
       <h3>Nasıl Çalışır?</h3>
       <ul>
         <li>Her PGN yüklediğinizde dosya otomatik olarak kütüphaneye eklenir.</li>
         <li>Listedeki bir PGN kartına tıklayarak o dosyayı hemen yükleyebilirsiniz.</li>
         <li>Kart üzerindeki <strong>✕</strong> butonuyla PGN'i listeden kaldırabilirsiniz.</li>
+        <li><strong>Birleştirme:</strong> <strong>🔗</strong> butonuna basın, birleştirmek istediğiniz PGN'leri seçin ve <strong>Birleştir</strong>'e tıklayın; hepsi tek dosyada toplanır. Orijinal dosyalar değişmez.</li>
       </ul>
-      <div class="callout info"><span class="callout-icon">💡</span><span><strong>Not:</strong> PGN Kütüphanesi yalnızca aktif oturum süresince saklanır. Sayfa yenilendiğinde liste temizlenir.</span></div>
+      <div class="callout info"><span class="callout-icon">💡</span><span><strong>Not:</strong> Kütüphane kalıcıdır; program kapatılıp açıldığında da listede kalır. Listeden kaldırmak dosyayı bilgisayarınızdan silmez.</span></div>
     </div>
 
     <div class="section" id="board">
@@ -566,8 +617,8 @@ Round  ECO   WhiteElo  BlackElo  FEN</code></pre>
       <ul><li>Sağ alt köşedeki simgeye tıklayın veya <kbd>F</kbd> tuşuna basın.</li></ul>
       <h3>Otomatik Oynatma</h3>
       <ul>
-        <li>Hamleye tıklayın ve <kbd>Space</kbd> tuşuna basın veya ▶ Oto butonuna tıklayın.</li>
-        <li>Oynatma hızı sol paneldeki kaydırıcıdan ayarlanabilir.</li>
+        <li>Hamleye tıklayın ve <kbd>Space</kbd> tuşuna basın veya ⏯️ butonuna tıklayın.</li>
+        <li>Oynatma hızı araç çubuğundaki <strong>Hız</strong> kaydırıcısından ayarlanır.</li>
       </ul>
     </div>
 
@@ -613,23 +664,48 @@ Round  ECO   WhiteElo  BlackElo  FEN</code></pre>
     <div class="section" id="fen">
       <div class="section-title"><span class="section-num">07</span><h2>FEN İşlemleri</h2></div>
       <ul>
-        <li>📋 FEN Kopyala butonuyla mevcut pozisyonun FEN kodu panoya kopyalanır.</li>
-        <li><kbd>Ctrl+Shift+F</kbd> veya 📥 FEN Yapıştır ile panodan FEN yüklenir.</li>
+        <li><strong>Pozisyonu Kopyala</strong> butonuyla mevcut pozisyonun FEN kodu panoya kopyalanır.</li>
+        <li><kbd>Ctrl+Shift+F</kbd> veya <strong>Pozisyonu Yapıştır</strong> ile panodan FEN yüklenir.</li>
       </ul>
+    </div>
+
+    <div class="section" id="pdf-scan">
+      <div class="section-title"><span class="section-num">07b</span><h2>PDF'den / Resimden Konum Tarama</h2></div>
+      <p>Bir kitaptan, dergiden, taranmış bir sayfadan ya da bir ekran görüntüsünden tahta diyagramını okutup doğrudan uygulamaya pozisyon olarak aktarabilirsiniz — elle kare kare taş dizmeye gerek kalmaz. Gri ya da soluk baskılar, kalın/ince/süslü çerçeveler, kenardaki a–h / 1–8 harfleri, taramalı kareler ve renkli tahtalar (Lichess, Chess.com vb.) desteklenir. Tarama tamamen bilgisayarınızda yapılır, internet gerekmez.</p>
+      <h3>Nasıl Kullanılır?</h3>
+      <ol class="steps">
+        <li>Araç çubuğundaki <strong>📰 PDF'den Konum Tara</strong> butonuna tıklayın (tek bir resim veya ekran görüntüsü için <strong>📷 Resimden Konum Tara</strong>). Tarama ayrı bir pencerede açılır: solda sayfa, sağda okunan tahta.</li>
+        <li><strong>📄 PDF Seç</strong> (ya da <strong>🖼️ Resim Seç</strong>) ile dosyanızı açın. Başka bir dosyaya geçmek için üstteki <strong>📂</strong> butonunu kullanabilirsiniz.</li>
+        <li>PDF'de sayfayı kaydırarak gezinin; <strong>◀ / ▶</strong> okları veya sayfa numarası kutusuyla istediğiniz sayfaya atlayabilirsiniz.</li>
+        <li><strong>🖱️ Diyagramı Seç</strong> açıkken diyagramın etrafını fareyle sürükleyerek bir kutu çizin. Kutuyu tahtadan biraz geniş tutmanız yeterli — çerçeve, koordinat harfleri veya başlık kutunun içinde kalsa da program tahtayı kendisi bulur.</li>
+        <li>Fareyi bıraktığınızda seçim kutusu tahtanın kenarlarına oturur ve üzerine ince <strong>kırmızı 8×8 ızgara</strong> çizilir. Çizgiler karelerle çakışıyorsa tahta doğru bulunmuştur; okunan pozisyon hemen sağdaki tahtada görünür.</li>
+        <li>Yanlış okunan bir kare varsa sağdaki tahtada o kareye tıklayıp doğru taşı (veya boş kareyi) seçin.</li>
+        <li>Tahtanın yönünü (<strong>⬜ Normal</strong> — beyaz altta / <strong>⬛ Ters</strong> — siyah altta) ve sıranın kimde olduğunu (<strong>♔ Sıra beyazda</strong> / <strong>♚ Sıra siyahta</strong>) seçin.</li>
+        <li>Pozisyonu kullanmak için üç seçenek vardır:
+          <ul>
+            <li><strong>Ana tahtaya aktar —</strong> pozisyon ana programın tahtasına yüklenir.</li>
+            <li><strong>💾 PGN kaydet —</strong> pozisyonu yeni bir PGN dosyası olarak kaydeder.</li>
+            <li><strong>➕ Önceki PGN'in üzerine ekle —</strong> pozisyonu kaydettiğiniz son PGN dosyasına yeni bir oyun olarak ekler. Böylece bir kitabın diyagramlarını arka arkaya tarayıp tek dosyada toplayabilirsiniz. <kbd>Shift</kbd> tuşuna basılı tutarak tıklarsanız eklenecek dosyayı yeniden seçersiniz.</li>
+          </ul>
+        </li>
+      </ol>
+      <div class="callout warn"><span class="callout-icon">⚠️</span><span>Kırmızı ızgara karelere oturmamışsa ya da birçok kare yanlış okunduysa diyagramın etrafını yeniden, biraz daha yakından seçin. Tek tük hatalı kareleri sağdaki tahtada üzerine tıklayarak düzeltebilirsiniz. Aktarmadan önce pozisyonu (özellikle şahları ve sıranın kimde olduğunu) mutlaka kontrol edin.</span></div>
     </div>
 
     <div class="section" id="engine">
       <div class="section-title"><span class="section-num">08</span><h2>Motor Analizi (Stockfish)</h2></div>
       <ul>
-        <li>⚙️ butonuna tıklayın — Motor Pasif → Motor Aktif konumuna geçer.</li>
-        <li>⚡ butonuyla en iyi hamle oynatılır ve notasyona eklenir.</li>
-        <li>Motor çubuğunda − ve + butonlarıyla arama derinliği ayarlanır.</li>
+        <li>Araç çubuğundaki <strong>⚙️</strong> butonuna tıklayın — analiz paneli <strong>Motor: Pasif</strong> durumundan aktife geçer; tekrar tıklayınca durur.</li>
+        <li>Panelde değerlendirme çubuğu, en iyi hamle ve birden fazla aday varyant gösterilir.</li>
+        <li><strong>En iyi hamle</strong> satırına tıklayınca o hamle tahtada oynanır.</li>
+        <li>Arama derinliği paneldeki <strong>Derinlik</strong> kutusundan ayarlanır.</li>
+        <li>Bütün oyunu analiz etmek için araç çubuğundaki <strong>🔍 Oyunu Analiz Et</strong> butonunu kullanın.</li>
       </ul>
       <div class="callout warn"><span class="callout-icon">⚠️</span><span>Stockfish ücretsizdir. Stockfish isterse motor sağlamaktan vazgeçebilir. Kullanıcı bu konuda bir hak iddia edemez.</span></div>
-      <h3 id="engine-ext">Harici Motor Ekleme (Electron)</h3>
+      <h3 id="engine-ext">Harici Motor Ekleme</h3>
       <ul>
-        <li>"Motor seç" butonuyla Motor Ayarları penceresini açın.</li>
-        <li><strong>"Motor Seç"</strong> butonuyla bilgisayarınızdan motor çalıştırılabilir dosyasını seçin.</li>
+        <li>Analiz panelindeki <strong>🔌 Motor Seç</strong> butonuna tıklayın ve bilgisayarınızdaki motorun <code>.exe</code> dosyasını seçin.</li>
+        <li>Seçili motorun adı butonun yanında görünür; varsayılan dahili motor <strong>(WASM)</strong> olarak gösterilir.</li>
       </ul>
       <div class="callout info"><span class="callout-icon">💡</span><span>Harici motorlar UCI protokolünü desteklemelidir. Lc0, Komodo, Houdini, Rybka gibi motorlar bu protokolü destekler.</span></div>
     </div>
@@ -637,14 +713,18 @@ Round  ECO   WhiteElo  BlackElo  FEN</code></pre>
     <div class="section" id="play">
       <div class="section-title"><span class="section-num">09</span><h2>Motorla Oynama</h2></div>
       <ul>
-        <li>⚙️ butonuna tıklayın, tarafı seçin, ardından 🤖 butonuna tıklayın.</li>
-        <li>Motor oyun modundayken navigasyon butonları devre dışıdır.</li>
+        <li>Tahtanın altındaki <strong>🤖 Motorla Maç Yap</strong> butonuna tıklayın; tahtadaki pozisyondan motora karşı oynamaya başlarsınız.</li>
         <li>Aynı 🤖 butonuna tekrar tıklayarak moddan çıkılır.</li>
+      </ul>
+      <h3>Saatli Maç</h3>
+      <ul>
+        <li>Araç çubuğundaki <strong>⏱️ Motorla Saatli Maç</strong> butonuyla motora karşı satranç saatiyle maç yapabilirsiniz.</li>
       </ul>
     </div>
 
     <div class="section" id="quiz">
       <div class="section-title"><span class="section-num">10</span><h2>Quiz Modu</h2></div>
+      <p>Araç çubuğundaki <strong>🎡</strong> butonuyla açılır.</p>
       <h3>Kaynak Seçimi</h3>
       <ul>
         <li><strong>🌐 Lichess —</strong> Lichess puzzle veritabanından otomatik bulmaca çeker.</li>
@@ -678,20 +758,34 @@ Round  ECO   WhiteElo  BlackElo  FEN</code></pre>
       </table></div>
     </div>
 
+    <div class="section" id="teacher">
+      <div class="section-title"><span class="section-num">10b</span><h2>Öğretmen Modu</h2></div>
+      <p>Tahtanın altındaki <strong>Öğretmen Modu</strong> butonu, açık olan oyunu ayrı bir pencerede, sınıfta göstermeye uygun büyük ve sade bir görünümle açar. Tahta yönü ve tam ekran durumu ana pencereden alınır.</p>
+      <ul>
+        <li>Hamleler ve varyantlar notasyona tıklanarak oynatılır.</li>
+        <li><strong>💡 Analiz:</strong> Stockfish pozisyonu değerlendirir; skor ve en iyi hamle dizisi üstte görünür. Diziye tıklayınca hamleler tahtada "hayalet" olarak oynatılır, asıl oyun değişmez.</li>
+        <li><strong>📋</strong> butonu mevcut pozisyonun FEN kodunu kopyalar.</li>
+        <li>Notasyon harf / figür tercihi (<strong>Aa / ♞</strong>) burada da kullanılabilir.</li>
+      </ul>
+    </div>
+
     <div class="section" id="save">
       <div class="section-title"><span class="section-num">11</span><h2>PGN Kaydetme</h2></div>
       <ul>
-        <li>💾 PGN Kaydet butonuna tıklayın.</li>
+        <li>Araç çubuğundaki <strong>💾</strong> butonuna tıklayın.</li>
+        <li>Oyun bir dosyadan veya kütüphaneden açıldıysa yanında <strong>turuncu 💾</strong> butonu da görünür: yaptığınız analiz, yorum ve sembolleri <strong>aynı PGN dosyasındaki</strong> oyunun üzerine kaydeder.</li>
+        <li>Üst çubuktaki <strong>📋</strong> butonuyla mevcut oyunu var olan bir PGN dosyasının sonuna ekleyebilirsiniz.</li>
         <li>Yorumlar ve NAG sembolleri korunarak kaydedilir.</li>
-        <li>Electron'da dosya diyaloğu, web'de <code>.pgn</code> indirmesi açılır.</li>
+        <li>Kaydetme yeri için dosya diyaloğu açılır.</li>
       </ul>
     </div>
 
     <div class="section" id="electron">
-      <div class="section-title"><span class="section-num">12</span><h2>Electron Masaüstü Özellikleri</h2></div>
+      <div class="section-title"><span class="section-num">12</span><h2>Masaüstü Özellikleri</h2></div>
       <ul>
         <li><strong>Dosya Menüsü:</strong> Dosya → Aç ile PGN açma, Dosya → Kaydet ile kaydetme</li>
-        <li><strong>Offline Çalışma:</strong> Çeviri ve lichess veritabanı dışındaki tüm özellikler internet bağlantısı olmadan çalışır</li>
+        <li><strong>Offline Çalışma:</strong> Çeviri, Lichess veritabanı ve Lichess bulmacaları dışındaki tüm özellikler (motor analizi ve diyagram tarama dahil) internet bağlantısı olmadan çalışır</li>
+        <li><strong>Dosya ilişkilendirme:</strong> <code>.pgn</code> dosyaları çift tıklandığında Chesse'de açılır</li>
       </ul>
     </div>
 
@@ -710,6 +804,7 @@ Round  ECO   WhiteElo  BlackElo  FEN</code></pre>
           <tr><td>N</td><td>Sonraki oyun</td></tr>
           <tr><td>B</td><td>Önceki oyun</td></tr>
           <tr><td>Ctrl+Shift+F</td><td>FEN yapıştır</td></tr>
+          <tr><td>Ctrl+R</td><td>Tahtayı sıfırla</td></tr>
         </tbody>
       </table></div>
     </div>
@@ -730,6 +825,19 @@ Round  ECO   WhiteElo  BlackElo  FEN</code></pre>
       <div class="callout warn"><span class="callout-icon">⚠️</span><span>Lichess veritabanı ücretsiz bir hizmettir. Lichess isterse bu hizmeti sona erdirebilir.</span></div>
     </div>
 
+    <div class="section" id="books">
+      <div class="section-title"><span class="section-num">14b</span><h2>Açılış Kitapları</h2></div>
+      <p><strong>Ağaç</strong> sekmesindeki <strong>Kitap Yükle</strong> butonuyla bir açılış kitabı açabilirsiniz; mevcut pozisyondaki kitap hamleleri listelenir.</p>
+      <div class="tbl-wrap"><table>
+        <thead><tr><th>Biçim</th><th>Açıklama</th></tr></thead>
+        <tbody class="td-normal">
+          <tr><td>.json</td><td>Chesse'nin kendi kitap biçimi — kendi PGN'inizden oluşturabilirsiniz (<a href="#tree-builder" style="color:var(--accent2)">Ağaç Oluşturma</a>)</td></tr>
+          <tr><td>.bin</td><td>Polyglot açılış kitabı</td></tr>
+          <tr><td>.ctg</td><td>ChessBase açılış kitabı — aynı klasörde <code>.cto</code> ve <code>.ctb</code> dosyaları da bulunmalıdır</td></tr>
+        </tbody>
+      </table></div>
+    </div>
+
     <div class="section" id="faq">
       <div class="section-title"><span class="section-num">15</span><h2>Sık Sorulan Sorular</h2></div>
       <h3>Harici motor listede görünmüyor</h3>
@@ -737,7 +845,7 @@ Round  ECO   WhiteElo  BlackElo  FEN</code></pre>
       <h3>Tahta boş görünüyor</h3>
       <ul><li>PGN dosyasının geçerli format içerdiğinden emin olun.</li></ul>
       <h3>Motor analizi başlamıyor</h3>
-      <ul><li>⚙️ butonuna tıklayarak Motor Aktif konumuna geçin.</li></ul>
+      <ul><li>Araç çubuğundaki ⚙️ butonuna tıklayarak analizi başlatın.</li></ul>
       <div class="callout info" style="margin-top:40px"><span class="callout-icon">💡</span><span>Başka sorularınız için GitHub deposunu ziyaret edebilir veya geliştirici ile iletişime geçebilirsiniz.</span></div>
     </div>
 
@@ -751,6 +859,10 @@ Round  ECO   WhiteElo  BlackElo  FEN</code></pre>
           <tr><td>Electron</td><td><a href="https://www.electronjs.org" style="color:var(--accent2)">electronjs.org</a> — MIT</td></tr>
           <tr><td>chess.js</td><td><a href="https://cdnjs.cloudflare.com/ajax/libs/chess.js/0.10.3/chess.min.js" style="color:var(--accent2)">chess.min.js v0.10.3</a> — BSD</td></tr>
           <tr><td>chess-eco-codes</td><td><a href="https://github.com/kevinludwig/chess-eco-codes" style="color:var(--accent2)">github.com/kevinludwig/chess-eco-codes</a> — MIT</td></tr>
+          <tr><td>PDF.js</td><td>PDF görüntüleme — <a href="https://mozilla.github.io/pdf.js/" style="color:var(--accent2)">mozilla.github.io/pdf.js</a> — Apache 2.0</td></tr>
+          <tr><td>TensorFlow.js</td><td>Diyagram taramada taş tanıma — <a href="https://www.tensorflow.org/js" style="color:var(--accent2)">tensorflow.org/js</a> — Apache 2.0</td></tr>
+          <tr><td>chessboard-recognizer</td><td>Taş tanıma modeli — <a href="https://github.com/linrock/chessboard-recognizer" style="color:var(--accent2)">github.com/linrock/chessboard-recognizer</a> — MIT</td></tr>
+          <tr><td>cbh2pgn</td><td>ChessBase veritabanı okuma (uyarlandı) — <a href="https://github.com/asdfjkl/cbh2pgn" style="color:var(--accent2)">github.com/asdfjkl/cbh2pgn</a> — MIT</td></tr>
         </tbody>
       </table></div>
       <div class="callout info" style="margin-top:24px"><span class="callout-icon">🤖</span><span>Bu uygulamanın kodları <strong>Claude (Anthropic)</strong> ile oluşturulmuştur. Tasarım konusunda <strong>Gemini (Google)</strong> ve <strong>ChatGPT (OpenAI)</strong>'den yararlanılmıştır.</span></div>
@@ -771,6 +883,17 @@ Round  ECO   WhiteElo  BlackElo  FEN</code></pre>
       </ul>
       <div class="callout warn"><span class="callout-icon">⚠️</span><span>Oluşturulan ağaç dosyası en fazla <strong>5 MB</strong> olacak şekilde PGN boyutunu sınırlandırın.</span></div>
     </div>
+
+    <div class="section" id="chesseapp">
+      <div class="section-title"><span class="section-num">18</span><h2>Kardeş Uygulama: ChesseApp</h2></div>
+      <p>Chesse, oyun incelemesi ve veritabanı çalışması için tasarlanmış masaüstü programıdır. Satranç <strong>öğrenmek ve öğretmek</strong> için ise aynı geliştiricinin <strong>ChesseApp</strong> uygulaması vardır.</p>
+      <ul>
+        <li>Öğrenciler ve öğretmenler için Türkçe/İngilizce dersler, quizler, açılış ve oyunsonu çalışmaları.</li>
+        <li>Öğretmen Modu, motor analizi, PDF ve resimden konum tarama, etkinlik raporu.</li>
+        <li>Android (Google Play), Windows ve Pardus akıllı tahtalarda çalışır.</li>
+      </ul>
+      <div class="callout info"><span class="callout-icon">🌐</span><span>Ayrıntılar ve indirme: <a href="https://chesseapp.com.tr" style="color:var(--accent2)">chesseapp.com.tr</a></span></div>
+    </div>
     `
   },
 
@@ -782,7 +905,7 @@ Round  ECO   WhiteElo  BlackElo  FEN</code></pre>
     tagQuiz: "Quiz Mode",
     heroBadge: "USER GUIDE",
     heroTitle: "Chesse <span>Guide</span>",
-    heroDesc: "Load, analyze, annotate and play against the engine with chess games in PGN format. Runs as a web browser app and Electron desktop application.",
+    heroDesc: "Load, analyze and annotate chess games in PGN and ChessBase format, play against the engine and scan diagrams from books. A Windows desktop application.",
     nav: [
       { label: "Overview", href: "#overview", icon: "♟" },
       { label: "Interface", href: "#interface", icon: "🖥" },
@@ -792,32 +915,40 @@ Round  ECO   WhiteElo  BlackElo  FEN</code></pre>
       { label: "Navigation", href: "#navigation", icon: "🧭" },
       { label: "Comments & Symbols", href: "#comments", icon: "💬" },
       { label: "FEN Operations", href: "#fen", icon: "🔢" },
+      { label: "Scan from PDF / Image", href: "#pdf-scan", icon: "📄" },
       { label: "Engine Analysis", href: "#engine", icon: "⚙️" },
       { label: "Play vs Engine", href: "#play", icon: "🎮" },
       { label: "Quiz Mode", href: "#quiz", icon: "🔍" },
+      { label: "Teacher Mode", href: "#teacher", icon: "👨‍🏫" },
       { label: "PGN Saving", href: "#save", icon: "💾" },
-      { label: "Electron Features", href: "#electron", icon: "🖥️" },
+      { label: "Desktop Features", href: "#electron", icon: "🖥️" },
       { label: "Keyboard Shortcuts", href: "#shortcuts", icon: "⌨️" },
       { label: "Lichess Database", href: "#lichess", icon: "🌐" },
+      { label: "Opening Books", href: "#books", icon: "📖" },
       { label: "FAQ", href: "#faq", icon: "❓" },
       { label: "Credits", href: "#credits", icon: "🏆" },
       { label: "Tree Builder", href: "#tree-builder", icon: "🌳" },
+      { label: "ChesseApp", href: "#chesseapp", icon: "🎓" },
     ],
     content: `
     <div class="section" id="overview">
       <div class="section-title"><span class="section-num">01</span><h2>Overview</h2></div>
-      <p>Chesse lets you load and analyze chess games in PGN format, navigate variations, run engine analysis, and save annotated games. Runs in a web browser and as an Electron desktop app.</p>
+      <p>Chesse lets you load and analyze chess games in PGN format, navigate variations, run engine analysis, and save annotated games. Runs as a Windows desktop application.</p>
       <div class="feature-grid">
         <div class="feat-card" onclick="scrollToSection('loading')"><div class="feat-icon">📂</div><div class="feat-title">Loading PGN</div><div class="feat-desc">File or paste — single and multi-game</div></div>
         <div class="feat-card" onclick="scrollToSection('board')"><div class="feat-icon">♟</div><div class="feat-title">Interactive Board</div><div class="feat-desc">Make moves by clicking or drag-and-drop</div></div>
         <div class="feat-card" onclick="scrollToSection('navigation')"><div class="feat-icon">🌳</div><div class="feat-title">Variation Tree</div><div class="feat-desc">View and navigate nested variations</div></div>
         <div class="feat-card" onclick="scrollToSection('engine')"><div class="feat-icon">⚙️</div><div class="feat-title">Engine Analysis</div><div class="feat-desc">Position evaluation with Stockfish</div></div>
-        <div class="feat-card" onclick="scrollToSection('play')"><div class="feat-icon">🎮</div><div class="feat-title">Play vs Engine</div><div class="feat-desc">Play white or black against the computer</div></div>
+        <div class="feat-card" onclick="scrollToSection('play')"><div class="feat-icon">🎮</div><div class="feat-title">Play vs Engine</div><div class="feat-desc">Free or timed games against the engine</div></div>
         <div class="feat-card" onclick="scrollToSection('comments')"><div class="feat-icon">💬</div><div class="feat-title">Comments & Symbols</div><div class="feat-desc">Add text comments and NAG symbols</div></div>
         <div class="feat-card" onclick="scrollToSection('quiz')"><div class="feat-icon">🔍</div><div class="feat-title">Quiz Mode</div><div class="feat-desc">Solve puzzles from PGN files</div></div>
-        <div class="feat-card" onclick="scrollToSection('library')"><div class="feat-icon">📚</div><div class="feat-title">PGN Library</div><div class="feat-desc">Store loaded PGNs for the session</div></div>
+        <div class="feat-card" onclick="scrollToSection('library')"><div class="feat-icon">📚</div><div class="feat-title">PGN Library</div><div class="feat-desc">Keep and merge your loaded PGNs</div></div>
         <div class="feat-card" onclick="scrollToSection('engine-ext')"><div class="feat-icon">🔌</div><div class="feat-title">External Engine</div><div class="feat-desc">Add your own UCI-compatible engine</div></div>
         <div class="feat-card" onclick="scrollToSection('save')"><div class="feat-icon">💾</div><div class="feat-title">PGN Saving</div><div class="feat-desc">Export with comments and variations</div></div>
+        <div class="feat-card" onclick="scrollToSection('pdf-scan')"><div class="feat-icon">📄</div><div class="feat-title">Scan from PDF / Image</div><div class="feat-desc">Read a book diagram and import it as a position</div></div>
+        <div class="feat-card" onclick="scrollToSection('teacher')"><div class="feat-icon">👨‍🏫</div><div class="feat-title">Teacher Mode</div><div class="feat-desc">A clean, separate window for class</div></div>
+        <div class="feat-card" onclick="scrollToSection('loading')"><div class="feat-icon">🗄️</div><div class="feat-title">ChessBase Support</div><div class="feat-desc">Open .cbh databases with comments</div></div>
+        <div class="feat-card" onclick="scrollToSection('books')"><div class="feat-icon">📖</div><div class="feat-title">Opening Books</div><div class="feat-desc">.json, Polyglot (.bin) and ChessBase (.ctg)</div></div>
       </div>
     </div>
 
@@ -828,65 +959,113 @@ Round  ECO   WhiteElo  BlackElo  FEN</code></pre>
         <thead><tr><th>Panel</th><th>Content</th></tr></thead>
         <tbody class="td-normal">
           <tr><td>Left Panel</td><td>Chess board, navigation buttons, engine bar and toolbar</td></tr>
-          <tr><td>Right Panel</td><td>Tabbed view: Game list, Move tree, PGN notation</td></tr>
+          <tr><td>Right Panel</td><td>Tabbed view: Main (PGN Library), Games, Tree, PGN</td></tr>
         </tbody>
       </table></div>
       <h3>Tabs (Right Panel)</h3>
       <ul>
-        <li><strong>🎮 Games —</strong> List of all games in the loaded PGN.</li>
-        <li><strong>🌳 Tree —</strong> Move tree of the current game.</li>
-        <li><strong>📄 PGN —</strong> Notation view with comments and variations.</li>
+        <li><strong>📚 Main —</strong> PGN Library (the files you have opened).</li>
+        <li><strong>🎮 Games —</strong> List of all games in the open file.</li>
+        <li><strong>🌳 Tree —</strong> Opening tree, Lichess master games and opening books.</li>
+        <li><strong>📖 PGN —</strong> Notation, comments and variations of the current game.</li>
       </ul>
-      <h3>Toolbar Buttons</h3>
+      <h3>Top Bar</h3>
       <div class="tbl-wrap"><table>
         <thead><tr><th>Button</th><th>Description</th></tr></thead>
         <tbody>
-          <tr><td>⚙️ Settings</td><td>Opens engine settings</td></tr>
-          <tr><td>💬 Comment</td><td>Adds a text comment to the current move <kbd>C</kbd></td></tr>
-          <tr><td>♟ Symbol</td><td>Opens the NAG symbol menu</td></tr>
-          <tr><td>📋 Copy FEN</td><td>Copies the FEN code to clipboard</td></tr>
-          <tr><td>📥 Paste FEN</td><td>Loads FEN from clipboard <kbd>Ctrl+Shift+F</kbd></td></tr>
-          <tr><td>💾 Save PGN</td><td>Saves the game as .pgn</td></tr>
-          <tr><td>🗑 Reset</td><td>Resets the board and all moves</td></tr>
-          <tr><td>👁 Comments</td><td>Toggle comments on/off</td></tr>
-          <tr><td>📖 Guide</td><td>Opens this page</td></tr>
+          <tr><td>Load PGN</td><td>Opens a PGN or ChessBase (.cbh) file</td></tr>
+          <tr><td>📋</td><td>Adds the current game to an existing PGN file</td></tr>
+          <tr><td>Notation</td><td>Hides / shows the notation panel</td></tr>
+          <tr><td>EN / TR</td><td>Switches the interface language</td></tr>
+          <tr><td>Select Theme</td><td>Chooses the colour theme (8 themes)</td></tr>
         </tbody>
       </table></div>
+      <h3>Buttons Below the Board</h3>
+      <div class="tbl-wrap"><table>
+        <thead><tr><th>Button</th><th>Function</th></tr></thead>
+        <tbody>
+          <tr><td>⏮</td><td>Go to start</td></tr>
+          <tr><td>◀️</td><td>One move back</td></tr>
+          <tr><td>⏯️</td><td>Auto-play / pause</td></tr>
+          <tr><td>▶️</td><td>One move forward</td></tr>
+          <tr><td>⏭</td><td>Go to end</td></tr>
+          <tr><td>🤖</td><td>Play against the engine (<a href="#play" style="color:var(--accent2)">details</a>)</td></tr>
+          <tr><td>🔁</td><td>Repeat Mode — replay the game by guessing it move by move</td></tr>
+          <tr><td>Teacher</td><td>Opens Teacher Mode (<a href="#teacher" style="color:var(--accent2)">details</a>)</td></tr>
+        </tbody>
+      </table></div>
+      <h3>Toolbar</h3>
+      <div class="tbl-wrap"><table>
+        <thead><tr><th>Button</th><th>Description</th></tr></thead>
+        <tbody>
+          <tr><td>⚙️</td><td>Starts / stops Stockfish analysis</td></tr>
+          <tr><td>🆕</td><td>Resets the board <kbd>Ctrl+R</kbd></td></tr>
+          <tr><td>💬</td><td>Adds a comment to the current move <kbd>C</kbd></td></tr>
+          <tr><td>Comments</td><td>Hides / shows comments</td></tr>
+          <tr><td>!!±</td><td>Adds a symbol (NAG)</td></tr>
+          <tr><td>FEN</td><td>Copies / pastes the position</td></tr>
+          <tr><td>Paste Game</td><td>Opens PGN text from the clipboard as a game</td></tr>
+          <tr><td>💾</td><td>Saves the game as PGN</td></tr>
+          <tr><td>💾 (orange)</td><td>Saves a game opened from a file back into the same PGN file (only shown in that case)</td></tr>
+          <tr><td>🎨</td><td>View Settings: board and piece style, notation font and size, Aa / ♞</td></tr>
+          <tr><td>🎡</td><td>Quiz Mode</td></tr>
+          <tr><td>🔍</td><td>Analyses the game with the engine</td></tr>
+          <tr><td>⏱️</td><td>Timed game against the engine</td></tr>
+          <tr><td>📰</td><td>Scan position from PDF (<a href="#pdf-scan" style="color:var(--accent2)">details</a>)</td></tr>
+          <tr><td>📷</td><td>Scan position from image</td></tr>
+          <tr><td>🔳</td><td>Full screen</td></tr>
+          <tr><td>📖</td><td>Opens this guide</td></tr>
+        </tbody>
+      </table></div>
+      <h3>Appearance</h3>
+      <ul>
+        <li>Use <strong>Select Theme</strong> to choose one of 8 colour themes: Dark, Slate, Beige, Khaki, Light, Mint, Ice, Parchment.</li>
+        <li>In <strong>🎨 View Settings</strong> you can change the board and piece style and the notation font and size. The <strong>Aa / ♞</strong> buttons show pieces in the notation as letters (Nf3) or figurines (♘f3); the choice also applies in Teacher Mode.</li>
+      </ul>
     </div>
 
     <div class="section" id="loading">
       <div class="section-title"><span class="section-num">03</span><h2>Loading PGN</h2></div>
       <h3>Loading from File</h3>
       <ul>
-        <li><strong>Web:</strong> Click "Select PGN File" and select a <code>.pgn</code> file.</li>
-        <li><strong>Electron:</strong> Use File → Open menu or the Load PGN button.</li>
+        <li>Use the <strong>Load PGN</strong> button on the top bar or the File → Open menu and select a <code>.pgn</code> file.</li>
+        <li>You can also <strong>double-click</strong> a <code>.pgn</code> file on your computer to open it directly in Chesse.</li>
       </ul>
       <h3>Loading from Other Programs</h3>
       <ul>
-        <li>Copy PGN text and click the "Paste Game" button.</li>
+        <li>Copy the PGN text and click the <strong>Paste Game</strong> button on the toolbar.</li>
         <li>Single-game and multi-game PGNs are supported.</li>
       </ul>
       <h3>Supported PGN Headers</h3>
       <pre><code>Event  Site  Date  White  Black  Result
 Round  ECO   WhiteElo  BlackElo  FEN</code></pre>
       <div class="callout"><span class="callout-icon">♟</span><span><strong>FEN header:</strong> If present, the board starts from that position. Board flips automatically if it's Black's turn.</span></div>
+      <h3>ChessBase Database (.cbh)</h3>
+      <ul>
+        <li>Select a <code>.cbh</code> file just like a PGN; the games are listed in the <strong>Games</strong> tab and play back with variations and comments.</li>
+        <li>The database's other files (<code>.cbg</code>, <code>.cbp</code>, <code>.cbt</code>; <code>.cba</code> for comments) must be in the same folder.</li>
+        <li>ChessBase databases are read-only; you can save your changes as PGN.</li>
+      </ul>
       <h3>Multi-Game PGN</h3>
       <ul>
         <li>Games are listed in the <strong>Games</strong> tab.</li>
         <li><kbd>N</kbd> for next game, <kbd>B</kbd> for previous game.</li>
+        <li><strong>ECO search:</strong> type a code into the ECO column box of the games list (e.g. <code>C</code> or <code>C33</code>) to filter the list. Next/previous game follows the filtered list; the filter is cleared when a new PGN is opened.</li>
+        <li>For very large files, the first <strong>100,000</strong> games are listed.</li>
       </ul>
     </div>
 
     <div class="section" id="library">
       <div class="section-title"><span class="section-num">03b</span><h2>PGN Library</h2></div>
-      <p>The PGN Library stores loaded PGN files for the session. Located in the <strong>Main</strong> tab of the right panel.</p>
+      <p>The PGN Library keeps the PGN files you have loaded. Located in the <strong>Main</strong> tab of the right panel.</p>
       <h3>How It Works</h3>
       <ul>
         <li>Every PGN you load is automatically added to the library.</li>
         <li>Click a PGN card to immediately load and browse it.</li>
         <li>Click <strong>✕</strong> on a card to remove it from the list.</li>
+        <li><strong>Merging:</strong> press the <strong>🔗</strong> button, select the PGNs you want to combine and click <strong>Merge</strong>; they are collected into a single file. The original files are not changed.</li>
       </ul>
-      <div class="callout info"><span class="callout-icon">💡</span><span><strong>Note:</strong> The PGN Library is only stored for the active session. It clears when the page is refreshed.</span></div>
+      <div class="callout info"><span class="callout-icon">💡</span><span><strong>Note:</strong> The library is persistent; it is kept when you close and reopen the program. Removing an entry from the list does not delete the file from your computer.</span></div>
     </div>
 
     <div class="section" id="board">
@@ -900,8 +1079,8 @@ Round  ECO   WhiteElo  BlackElo  FEN</code></pre>
       <ul><li>Click the corner icon at the bottom-right or press <kbd>F</kbd>.</li></ul>
       <h3>Auto-Play</h3>
       <ul>
-        <li>Click a move and press <kbd>Space</kbd>, or click the ▶ Auto button.</li>
-        <li>Adjust speed with the slider in the left panel.</li>
+        <li>Click a move and press <kbd>Space</kbd>, or click the ⏯️ button.</li>
+        <li>Adjust the speed with the <strong>Speed</strong> slider on the toolbar.</li>
       </ul>
     </div>
 
@@ -947,23 +1126,48 @@ Round  ECO   WhiteElo  BlackElo  FEN</code></pre>
     <div class="section" id="fen">
       <div class="section-title"><span class="section-num">07</span><h2>FEN Operations</h2></div>
       <ul>
-        <li>Click 📋 Copy FEN to copy the current position's FEN to clipboard.</li>
-        <li>Use <kbd>Ctrl+Shift+F</kbd> or 📥 Paste FEN to load FEN from clipboard.</li>
+        <li>Click <strong>Copy Position</strong> to copy the current position's FEN to the clipboard.</li>
+        <li>Use <kbd>Ctrl+Shift+F</kbd> or <strong>Paste Position</strong> to load a FEN from the clipboard.</li>
       </ul>
+    </div>
+
+    <div class="section" id="pdf-scan">
+      <div class="section-title"><span class="section-num">07b</span><h2>Scan Position from PDF / Image</h2></div>
+      <p>You can read a board diagram from a book, a magazine, a scanned page or a screenshot and import it straight into the app as a position — no need to place the pieces square by square. Grey or faded prints, thick/thin/decorative frames, a–h / 1–8 coordinates around the board, hatched squares and coloured boards (Lichess, Chess.com, etc.) are all supported. Scanning runs entirely on your computer; no internet connection is needed.</p>
+      <h3>How to Use</h3>
+      <ol class="steps">
+        <li>Click the <strong>📰 Scan Position from PDF</strong> button on the toolbar (for a single picture or screenshot, use <strong>📷 Scan Position from Image</strong>). The scanner opens in a separate window: the page on the left, the recognised board on the right.</li>
+        <li>Open your file with <strong>📄 Choose PDF</strong> (or <strong>🖼️ Choose Image</strong>). To switch to another file, use the <strong>📂</strong> button at the top.</li>
+        <li>In a PDF, scroll through the pages; use the <strong>◀ / ▶</strong> arrows or the page number box to jump to a page.</li>
+        <li>With <strong>🖱️ Select Diagram</strong> switched on, drag a box around the diagram with the mouse. A box slightly larger than the board is enough — even if the frame, the coordinates or a caption end up inside the box, the program finds the board by itself.</li>
+        <li>When you release the mouse, the selection snaps to the edges of the board and a thin <strong>red 8×8 grid</strong> is drawn over it. If the lines match the squares, the board was found correctly; the recognised position appears on the board on the right right away.</li>
+        <li>If a square was read incorrectly, click that square on the board on the right and choose the correct piece (or an empty square).</li>
+        <li>Choose the board orientation (<strong>⬜ Normal</strong> — White at the bottom / <strong>⬛ Flipped</strong> — Black at the bottom) and the side to move (<strong>♔ White to move</strong> / <strong>♚ Black to move</strong>).</li>
+        <li>There are three ways to use the position:
+          <ul>
+            <li><strong>Transfer to main board —</strong> loads the position onto the main program's board.</li>
+            <li><strong>💾 Save PGN —</strong> saves the position as a new PGN file.</li>
+            <li><strong>➕ Append to previous PGN —</strong> adds the position as a new game to the last PGN file you saved. This lets you scan a book's diagrams one after another and collect them in a single file. Hold <kbd>Shift</kbd> while clicking to choose a different file to append to.</li>
+          </ul>
+        </li>
+      </ol>
+      <div class="callout warn"><span class="callout-icon">⚠️</span><span>If the red grid does not line up with the squares, or many squares are read incorrectly, select the area around the diagram again, a little closer this time. Occasional wrong squares can be fixed by clicking them on the board on the right. Always check the position before transferring it — especially the kings and the side to move.</span></div>
     </div>
 
     <div class="section" id="engine">
       <div class="section-title"><span class="section-num">08</span><h2>Engine Analysis (Stockfish)</h2></div>
       <ul>
-        <li>Click ⚙️ — switches from Inactive → Active.</li>
-        <li>Click ⚡ to play and add the best move to notation.</li>
-        <li>Use − and + buttons to adjust search depth.</li>
+        <li>Click the <strong>⚙️</strong> button on the toolbar — the analysis panel switches from <strong>Engine: Inactive</strong> to active; click again to stop.</li>
+        <li>The panel shows an evaluation bar, the best move and several candidate lines.</li>
+        <li>Click the <strong>best move</strong> line to play that move on the board.</li>
+        <li>Set the search depth in the panel's <strong>Depth</strong> box.</li>
+        <li>To analyse the whole game, use the <strong>🔍 Analyse Game</strong> button on the toolbar.</li>
       </ul>
       <div class="callout warn"><span class="callout-icon">⚠️</span><span>Stockfish is free. Stockfish may discontinue providing the engine at any time. The user cannot make any claims in this regard.</span></div>
-      <h3 id="engine-ext">Adding an External Engine (Electron)</h3>
+      <h3 id="engine-ext">Adding an External Engine</h3>
       <ul>
-        <li>Click "Select Engine" to open Engine Settings.</li>
-        <li>Choose the engine executable from your computer.</li>
+        <li>Click <strong>🔌 Select Engine</strong> in the analysis panel and choose the engine's <code>.exe</code> file on your computer.</li>
+        <li>The selected engine's name is shown next to the button; the built-in default engine is shown as <strong>(WASM)</strong>.</li>
       </ul>
       <div class="callout info"><span class="callout-icon">💡</span><span>External engines must support the UCI protocol. Lc0, Komodo, Houdini, and Rybka support this protocol.</span></div>
     </div>
@@ -971,14 +1175,18 @@ Round  ECO   WhiteElo  BlackElo  FEN</code></pre>
     <div class="section" id="play">
       <div class="section-title"><span class="section-num">09</span><h2>Play vs Engine</h2></div>
       <ul>
-        <li>Click ⚙️, choose your side, then click 🤖 to play against the engine.</li>
-        <li>Navigation buttons are disabled while in engine play mode.</li>
+        <li>Click <strong>🤖 Play vs Engine</strong> below the board to start playing against the engine from the position on the board.</li>
         <li>Click 🤖 again to exit the mode.</li>
+      </ul>
+      <h3>Timed Game</h3>
+      <ul>
+        <li>Use the <strong>⏱️ Timed Game vs Engine</strong> button on the toolbar to play against the engine with a chess clock.</li>
       </ul>
     </div>
 
     <div class="section" id="quiz">
       <div class="section-title"><span class="section-num">10</span><h2>Quiz Mode</h2></div>
+      <p>Opened with the <strong>🎡</strong> button on the toolbar.</p>
       <h3>Source Selection</h3>
       <ul>
         <li><strong>🌐 Lichess —</strong> Fetches puzzles automatically from Lichess.</li>
@@ -1012,20 +1220,34 @@ Round  ECO   WhiteElo  BlackElo  FEN</code></pre>
       </table></div>
     </div>
 
+    <div class="section" id="teacher">
+      <div class="section-title"><span class="section-num">10b</span><h2>Teacher Mode</h2></div>
+      <p>The <strong>Teacher Mode</strong> button below the board opens the current game in a separate window with a large, clean view suited for showing in class. Board orientation and full-screen state are taken from the main window.</p>
+      <ul>
+        <li>Moves and variations are played by clicking the notation.</li>
+        <li><strong>💡 Analysis:</strong> Stockfish evaluates the position; the score and best line appear at the top. Click the line to play the moves on the board as a "ghost" — the actual game is not changed.</li>
+        <li>The <strong>📋</strong> button copies the current position's FEN.</li>
+        <li>The letter / figurine notation choice (<strong>Aa / ♞</strong>) is available here too.</li>
+      </ul>
+    </div>
+
     <div class="section" id="save">
       <div class="section-title"><span class="section-num">11</span><h2>PGN Saving</h2></div>
       <ul>
-        <li>Click the 💾 Save PGN button.</li>
+        <li>Click the <strong>💾</strong> button on the toolbar.</li>
+        <li>If the game was opened from a file or the library, an <strong>orange 💾</strong> button also appears: it saves your analysis, comments and symbols over the game <strong>in the same PGN file</strong>.</li>
+        <li>Use the <strong>📋</strong> button on the top bar to append the current game to an existing PGN file.</li>
         <li>Comments and NAG symbols are preserved.</li>
-        <li>In Electron a file dialog opens; in web a <code>.pgn</code> is downloaded.</li>
+        <li>A file dialog opens to choose where to save.</li>
       </ul>
     </div>
 
     <div class="section" id="electron">
-      <div class="section-title"><span class="section-num">12</span><h2>Electron Desktop Features</h2></div>
+      <div class="section-title"><span class="section-num">12</span><h2>Desktop Features</h2></div>
       <ul>
         <li><strong>File Menu:</strong> File → Open to open PGN, File → Save to save</li>
-        <li><strong>Offline Operation:</strong> All features except translation and lichess database work without internet</li>
+        <li><strong>Offline Operation:</strong> All features except translation, the Lichess database and Lichess puzzles (including engine analysis and diagram scanning) work without internet</li>
+        <li><strong>File association:</strong> <code>.pgn</code> files open in Chesse when double-clicked</li>
       </ul>
     </div>
 
@@ -1044,6 +1266,7 @@ Round  ECO   WhiteElo  BlackElo  FEN</code></pre>
           <tr><td>N</td><td>Next game</td></tr>
           <tr><td>B</td><td>Previous game</td></tr>
           <tr><td>Ctrl+Shift+F</td><td>Paste FEN</td></tr>
+          <tr><td>Ctrl+R</td><td>Reset the board</td></tr>
         </tbody>
       </table></div>
     </div>
@@ -1064,6 +1287,19 @@ Round  ECO   WhiteElo  BlackElo  FEN</code></pre>
       <div class="callout warn"><span class="callout-icon">⚠️</span><span>The Lichess database is a free service. Lichess may terminate it at any time.</span></div>
     </div>
 
+    <div class="section" id="books">
+      <div class="section-title"><span class="section-num">14b</span><h2>Opening Books</h2></div>
+      <p>Open an opening book with the <strong>Load Book</strong> button in the <strong>Tree</strong> tab; the book moves for the current position are listed.</p>
+      <div class="tbl-wrap"><table>
+        <thead><tr><th>Format</th><th>Description</th></tr></thead>
+        <tbody class="td-normal">
+          <tr><td>.json</td><td>Chesse's own book format — you can build one from your own PGN (<a href="#tree-builder" style="color:var(--accent2)">Tree Builder</a>)</td></tr>
+          <tr><td>.bin</td><td>Polyglot opening book</td></tr>
+          <tr><td>.ctg</td><td>ChessBase opening book — the <code>.cto</code> and <code>.ctb</code> files must be in the same folder</td></tr>
+        </tbody>
+      </table></div>
+    </div>
+
     <div class="section" id="faq">
       <div class="section-title"><span class="section-num">15</span><h2>Frequently Asked Questions</h2></div>
       <h3>External engine not showing in list</h3>
@@ -1071,7 +1307,7 @@ Round  ECO   WhiteElo  BlackElo  FEN</code></pre>
       <h3>Board appears empty</h3>
       <ul><li>Make sure the PGN file contains valid format.</li></ul>
       <h3>Engine analysis not starting</h3>
-      <ul><li>Click ⚙️ to switch to Engine Active state.</li></ul>
+      <ul><li>Click the ⚙️ button on the toolbar to start the analysis.</li></ul>
       <div class="callout info" style="margin-top:40px"><span class="callout-icon">💡</span><span>For other questions visit the application's GitHub repository or contact the developer.</span></div>
     </div>
 
@@ -1085,6 +1321,10 @@ Round  ECO   WhiteElo  BlackElo  FEN</code></pre>
           <tr><td>Electron</td><td><a href="https://www.electronjs.org" style="color:var(--accent2)">electronjs.org</a> — MIT</td></tr>
           <tr><td>chess.js</td><td><a href="https://cdnjs.cloudflare.com/ajax/libs/chess.js/0.10.3/chess.min.js" style="color:var(--accent2)">chess.min.js v0.10.3</a> — BSD</td></tr>
           <tr><td>chess-eco-codes</td><td><a href="https://github.com/kevinludwig/chess-eco-codes" style="color:var(--accent2)">github.com/kevinludwig/chess-eco-codes</a> — MIT</td></tr>
+          <tr><td>PDF.js</td><td>PDF rendering — <a href="https://mozilla.github.io/pdf.js/" style="color:var(--accent2)">mozilla.github.io/pdf.js</a> — Apache 2.0</td></tr>
+          <tr><td>TensorFlow.js</td><td>Piece recognition for diagram scanning — <a href="https://www.tensorflow.org/js" style="color:var(--accent2)">tensorflow.org/js</a> — Apache 2.0</td></tr>
+          <tr><td>chessboard-recognizer</td><td>Piece recognition model — <a href="https://github.com/linrock/chessboard-recognizer" style="color:var(--accent2)">github.com/linrock/chessboard-recognizer</a> — MIT</td></tr>
+          <tr><td>cbh2pgn</td><td>ChessBase database reading (adapted) — <a href="https://github.com/asdfjkl/cbh2pgn" style="color:var(--accent2)">github.com/asdfjkl/cbh2pgn</a> — MIT</td></tr>
         </tbody>
       </table></div>
       <div class="callout info" style="margin-top:24px"><span class="callout-icon">🤖</span><span>The code for this application was created with <strong>Claude (Anthropic)</strong>. <strong>Gemini (Google)</strong> and <strong>ChatGPT (OpenAI)</strong> were consulted for design.</span></div>
@@ -1104,6 +1344,17 @@ Round  ECO   WhiteElo  BlackElo  FEN</code></pre>
         <li>Load the generated JSON with the <strong>📂 Load Book</strong> button.</li>
       </ul>
       <div class="callout warn"><span class="callout-icon">⚠️</span><span>Limit the PGN size so the generated tree file is at most <strong>5 MB</strong>.</span></div>
+    </div>
+
+    <div class="section" id="chesseapp">
+      <div class="section-title"><span class="section-num">18</span><h2>Sister App: ChesseApp</h2></div>
+      <p>Chesse is a desktop program designed for reviewing games and working with databases. For <strong>learning and teaching</strong> chess, the same developer offers <strong>ChesseApp</strong>.</p>
+      <ul>
+        <li>Turkish/English lessons, quizzes, opening and endgame training for students and teachers.</li>
+        <li>Teacher Mode, engine analysis, position scanning from PDF and images, activity report.</li>
+        <li>Runs on Android (Google Play), Windows and Pardus smart boards.</li>
+      </ul>
+      <div class="callout info"><span class="callout-icon">🌐</span><span>Details and downloads: <a href="https://chesseapp.com.tr" style="color:var(--accent2)">chesseapp.com.tr</a></span></div>
     </div>
     `
   }
