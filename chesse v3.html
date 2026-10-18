@@ -167,6 +167,51 @@
         transform: scale(1.05);
     }
 
+    /* İlk ekran (programın genel görüntüsü) */
+    .hero-shot {
+        margin: 0 0 40px;
+        text-align: center;
+    }
+    .hero-shot img {
+        width: 100%;
+        max-width: 1000px;
+        border-radius: 14px;
+        border: 1px solid rgba(26,188,156,0.5);
+        box-shadow: 0 0 18px rgba(26,188,156,0.35), 0 12px 40px rgba(0,0,0,0.6);
+        cursor: pointer;
+        transition: transform 0.3s ease;
+    }
+    .hero-shot img:hover { transform: scale(1.01); }
+    .hero-shot p { opacity: 0.7; font-size: 0.9em; margin-top: 10px; }
+
+    /* Yeni özellik bölümleri (renk her bölümde --c ile verilir) */
+    .feature-block .feature-left img {
+        max-width: 420px;
+        border-radius: 18px;
+        filter: drop-shadow(0 0 12px var(--c));
+    }
+    .feature-block .feature-right {
+        border-color: var(--c);
+        background: color-mix(in srgb, var(--c) 8%, transparent);
+        box-shadow: 0 0 10px color-mix(in srgb, var(--c) 50%, transparent);
+    }
+    .feature-block .feature-right h2 {
+        color: var(--c);
+        border-bottom-color: color-mix(in srgb, var(--c) 40%, transparent);
+    }
+    .feature-block .lead { opacity: 0.85; line-height: 1.6; margin: 12px 0 0; }
+    .new-badge {
+        display: inline-block;
+        font-size: 0.55em;
+        vertical-align: middle;
+        background: var(--c);
+        color: #0b1d2a;
+        border-radius: 4px;
+        padding: 2px 6px;
+        margin-left: 8px;
+        font-weight: bold;
+    }
+
     footer {
         text-align: center;
         padding: 20px;
@@ -240,10 +285,18 @@
         <p id="introText"></p>
     </div>
 
+    <!-- İlk ekran: programın genel görüntüsü (resmi ./img/ana.png olarak koyun) -->
+    <div class="hero-shot">
+        <img src="./img/ana.png" alt="Chesse" onclick="openModal(this.src)" onerror="this.parentNode.style.display='none'">
+        <p id="heroCaption"></p>
+    </div>
+
     <div class="feature-section">
         <div class="feature-left">
             <img src="./img/1.png" onclick="openModal(this.src)">
             <img src="./img/2.png" onclick="openModal(this.src)">
+           <img src="./img/4.png" onclick="openModal(this.src)">
+           <img src="./img/3.png" onclick="openModal(this.src)">
             <img src="./img/5.png" onclick="openModal(this.src)">
            <img src="./img/pdf.jpg" onclick="openModal(this.src)">
         </div>
@@ -273,6 +326,9 @@
             </div>
         </div>
     </div>
+
+    <!-- Yeni özellik bölümleri — içerik aşağıdaki translations.*.blocks dizisinden çiziliyor -->
+    <div id="featureBlocks"></div>
 </div>
 
 <footer>
@@ -292,30 +348,41 @@ const translations = {
     tr: {
         langBtn: "EN",
         introTitle: "AÇIKLAMALAR",
-        introText: "Bu yazılım, başlangıçta web tabanlı olarak geliştirilmiş olup daha stabil ve sorunsuz bir kullanım deneyimi sunmak amacıyla Electron platformuna aktarılmıştır. Windows 10, 11 ve 12 işletim sistemleri ile uyumludur. Lütfen işletim sisteminizin Electron tabanlı uygulamaları desteklediğinden emin olunuz. Yazılım çevrimdışı (offline) olarak çalışabilmektedir. Ancak çevrimiçi oyun özelliklerinden faydalanabilmek için internet bağlantısı gereklidir. Veritabanı oyunlarını kullanabilmek için Lichess üzerinden kişisel bir API token almanız gerekmektedir. Token oluşturmak için: <a href=\"https://lichess.org/account/oauth/token\" target=\"_blank\" style=\"color:#1abc9c;\">https://lichess.org/account/oauth/token</a> Bu yazılım yalnızca kişisel kullanım içindir. Ücret karşılığında satılamaz ve üçüncü şahıslarla paylaşılamaz.",
+        introText: "Bu yazılım, başlangıçta web tabanlı olarak geliştirilmiş olup daha stabil ve sorunsuz bir kullanım deneyimi sunmak amacıyla Electron platformuna aktarılmıştır. Windows 10, 11 ve 12 işletim sistemleri ile uyumludur. Lütfen işletim sisteminizin Electron tabanlı uygulamaları desteklediğinden emin olunuz. Yazılım çevrimdışı (offline) olarak çalışabilmektedir. Ancak Lichess bulmacaları ve Lichess oyun veritabanı gibi çevrimiçi özellikler için internet bağlantısı gereklidir. İnternet olmadan usta oyunlarını görmek için kendi PGN arşivinizden yerel veritabanı oluşturabilirsiniz. Lichess veritabanı oyunlarını kullanabilmek için Lichess üzerinden kişisel bir API token almanız gerekmektedir. Token oluşturmak için: <a href=\"https://lichess.org/account/oauth/token\" target=\"_blank\" style=\"color:#1abc9c;\">https://lichess.org/account/oauth/token</a> Bu yazılım yalnızca kişisel kullanım içindir. Ücret karşılığında satılamaz ve üçüncü şahıslarla paylaşılamaz.",
         featTitle: "Özellikler & Kısıtlamalar",
+        heroCaption: "Chesse — PGN görüntüleyici, motor analizi, açılış ansiklopedisi ve satranç eğitim araçları tek programda",
         buyBtn: "Satın Al",
         positive: [
-            "Sadece PGN dosyalarını açar",
+            "PGN ve ChessBase (.cbh) dosyalarını açar",
+            "PGN Kütüphanesi — açtığınız dosyaları kalıcı olarak hatırlar (50 dosya)",
+            "Açılış Ansiklopedisi — 3.800+ varyant, ECO kodları, arama",
+            "Canlı açılış tespiti (notasyonun üstünde)",
+            "İnternetsiz yerel usta oyunları veritabanı",
             "Otomotik oynatma vardır. (space)",
             "Ana panoda önceki PGN'leri görme ve tıklama",
             "Kopyalanan çoklu oyunları manuel olarak yapıştırma",
             "Harici Satranç Motoru ekleme",
             "Motor Maçı",
             "Saatli Motor Maçı (zaman kontrolü ile)",
-            "PDF'den Konum Tarama", 
+            "PDF'den ve resimden konum tarama (yapay zekâ ile diyagram okuma)",
+            "Diyagram yazdırma — öğrencilerinize çalışma sayfaları (PDF) hazırlayabilirsiniz",
+            "Oyun analizi — hataları ??, ?, ?! ile işaretleme",
             "En iyi motor hamlesini notasyona ekleme",
             "Motor analizlerini notasyona ekleme",
             "Motor analizlerini hayalet hamle olarak oynatma",
             "Satranç Ağacı ekleme ve oynatma",
             "Lichess oyun veritabanı",
             "PGN yükleyerek soru çözme",
-            "Lichess sorularına ulaşma",
+            "Lichess sorularına ulaşma (~65 tema)",
+            "Oyun bilgilerini düzenleme, toplu isim değiştirme",
+            "Oyunu açıldığı PGN dosyasına yerinde kaydetme",
+            "Farklı renk temaları",
             "Satranç ağacı sadece .ctg, .bin ve .json uzantılıdır<br><a href=\"https://www.hiarcs.com/book-downloads/H12Book.zip\" target=\"_blank\" style=\"color:#1abc9c;\">Download HIARCS 12 CTG Book</a><br><a href=\"https://www.hiarcs.com/chess-opening-book-free.html\" target=\"_blank\" style=\"color:#1abc9c;\">https://www.hiarcs.com/chess-opening-book-free.html</a>"
            
         ],
         negative: [
-            "Cbh, cbz vb."
+            "ChessBase dosyalarına yazma (.cbh sadece okunur)",
+            "Cbz, cbv vb. sıkıştırılmış arşivler"
         ],
         tmTitle: "👨‍🏫 Öğretmen Modu",
         tmFeatures: [
@@ -329,35 +396,95 @@ const translations = {
             "Geri al (Undo) desteği",
             "Tahtayı tamamen boşalt",
             "Değişken satır göster/gizle",
-            "FEN kopyalama (üst çubuktan tıkla)"
+            "FEN kopyalama (üst çubuktan tıkla)",
+            "Tam ekran açılır — projeksiyon ve akıllı tahta için ideal",
+            "Dokunmatik ekran desteği (parmakla taş sürükleme, ok çizme)"
+        ],
+        blocks: [
+            { color: "#f39c12", img: "./img/ansiklopedi.png", title: "📖 Açılış Ansiklopedisi", isNew: true,
+              lead: "Adı konmuş bütün açılışlar ve varyantlar ECO kodlarıyla tek pencerede. Bir varyanta tıklayın, hamleler tahtaya yüklensin.",
+              items: [
+                "3.800+ açılış varyantı, ECO kodlarıyla",
+                "Açık, Yarı Açık, Kapalı, Hint ve Kanat açılışları sekmeleri",
+                "Ada, ECO koduna veya hamlelere göre arama (najdorf, B90, e4 c5 Nf3)",
+                "Her varyanta 2500+ Elo usta oyunlarından örnek devam",
+                "Tıklayınca hamleler yeni oyun olarak notasyona yüklenir",
+                "Canlı açılış tespiti: tahtadaki pozisyonun açılışı notasyonun üstünde görünür (transpozisyonlar dahil)"
+              ] },
+            { color: "#27ae60", img: "./img/veritabani.png", title: "🗄️ Yerel Usta Veritabanı", isNew: true,
+              lead: "Ağaç sekmesindeki usta oyunlarını internet olmadan da görün — veritabanını kendi PGN arşivinizden siz oluşturursunuz.",
+              items: [
+                "Caissabase, TWIC gibi büyük PGN arşivlerinden oluşturma",
+                "Ayarlanabilir Elo sınırı (varsayılan 2100, iki oyuncu için de)",
+                "Her pozisyonda en yüksek Elo'lu 50 modern + 10 klasik oyun",
+                "Kaynak seçimi: Oto | Lichess | DB",
+                "Oyunu mini tahtada izleme, ana tahtaya aktarma"
+              ] },
+            { color: "#3498db", img: "./img/quiz.png", title: "🎡 Quiz Modu & Bulmacalar",
+              lead: "Lichess bulmacalarını çözün ya da kendi PGN'lerinizden öğrencilerinize soru hazırlayın.",
+              items: [
+                "Lichess günlük ve rastgele bulmacalar, ~65 tema, 4 zorluk seviyesi",
+                "Kendi PGN (veya .cbh) dosyanızdan soru çözme",
+                "PGN → Quiz dönüştürücü ile soru hazırlama",
+                "İpucu, atla, vazgeç; puan ve seri takibi",
+                "Soruyu ana tahtada motorla inceleme"
+              ] },
+            { color: "#e74c3c", img: "./img/saat.png", title: "⏱️ Motorla Saatli Maç",
+              lead: "Motora karşı gerçek bir turnuva maçı gibi süreli oynayın.",
+              items: [
+                "1, 3, 3+2, 5, 5+3, 10, 15, 30, 60 dk ve sınırsız süre",
+                "Motor kendi kalan süresine göre düşünür",
+                "Mat, pat, 3 kez tekrar, 50 hamle ve yetersiz materyal kuralları",
+                "Maç sonu ekranı: sonuç, neden, kazandın/kaybettin",
+                "Tekrar Oyna — yeni deneme varyant olarak yazılır, öncekiyle karşılaştırılır"
+              ] },
+            { color: "#9b59b6", img: "./img/diyagram.png", title: "🖨️ Diyagram Yazdırma", isNew: true,
+              lead: "Hazırladığınız soruları öğrencileriniz için yazdırılabilir çalışma kâğıdına dönüştürün.",
+              items: [
+                "Sayfada 6 veya 9 diyagram",
+                "Diyagram altında açıklama (Beyaz oynar, 3 hamlede mat…)",
+                "Oyunlar listesinden çoklu seçim ve sağ tık ile yazdırma",
+                "PDF olarak kaydetme ve yazdırma"
+              ] }
         ]
     },
     en: {
         langBtn: "TR",
         introTitle: "DESCRIPTION",
-        introText: "This software was originally developed as a web-based application and later adapted to the Electron platform for improved stability. It is compatible with Windows 10, 11, and 12. Please make sure that your operating system supports Electron-based applications. The software works offline. However, an internet connection is required for online gameplay features. For accessing and using the game database features, you need to obtain a personal API token from Lichess. You can generate your token here: <a href=\"https://lichess.org/account/oauth/token\" target=\"_blank\" style=\"color:#1abc9c;\">https://lichess.org/account/oauth/token</a> This software is licensed for personal use only. It may not be resold or distributed to third parties.",
+        introText: "This software was originally developed as a web-based application and later adapted to the Electron platform for improved stability. It is compatible with Windows 10, 11, and 12. Please make sure that your operating system supports Electron-based applications. The software works offline. However, online features such as Lichess puzzles and the Lichess game database require an internet connection. To see master games offline, you can build a local database from your own PGN archive. For the Lichess game database you need to obtain a personal API token from Lichess. You can generate your token here: <a href=\"https://lichess.org/account/oauth/token\" target=\"_blank\" style=\"color:#1abc9c;\">https://lichess.org/account/oauth/token</a> This software is licensed for personal use only. It may not be resold or distributed to third parties.",
         featTitle: "Features & Limitations",
+        heroCaption: "Chesse — PGN viewer, engine analysis, opening encyclopedia and chess teaching tools in one program",
         buyBtn: "Buy Now",
         positive: [
-            "Opens PGN files only",
+            "Opens PGN and ChessBase (.cbh) files",
+            "PGN Library — permanently remembers the files you open (50 files)",
+            "Opening Encyclopedia — 3,800+ lines, ECO codes, search",
+            "Live opening detection (above the notation)",
+            "Offline local master games database",
             "Auto-play is available (space)",
             "View and click previous PGNs on the main panel",
             "Manually paste multiple copied games",
             "Add external Chess Engine",
             "Engine Match",
             "Timed Engine Match (with clock)",
-            "Scan Position from PDF",
+            "Scan positions from PDF and images (AI diagram recognition)",
+            "Diagram printing — prepare worksheets (PDF) for your students",
+            "Game analysis — marks mistakes with ??, ?, ?!",
             "Add best engine move to notation",
             "Add engine analyses to notation",
             "Play engine analyses as ghost moves",
             "Add and play Chess Tree",
             "Lichess game database",
             "Solve puzzles by loading PGN",
-            "Access Lichess puzzles",
+            "Access Lichess puzzles (~65 themes)",
+            "Edit game details, bulk-rename players",
+            "Save a game in place to the PGN file it came from",
+            "Multiple color themes",
             "Chess tree is .ctg, .bin & .json format only<br><a href=\"https://www.hiarcs.com/book-downloads/H12Book.zip\" target=\"_blank\" style=\"color:#1abc9c;\">Download HIARCS 12 CTG Book</a><br><a href=\"https://www.hiarcs.com/chess-opening-book-free.html\" target=\"_blank\" style=\"color:#1abc9c;\">https://www.hiarcs.com/chess-opening-book-free.html</a>"
         ],
         negative: [
-            "Cbh, cbz etc."
+            "Writing to ChessBase files (.cbh is read-only)",
+            "Cbz, cbv and other compressed archives"
         ],
         tmTitle: "👨‍🏫 Teacher Mode",
         tmFeatures: [
@@ -371,7 +498,56 @@ const translations = {
             "Undo support",
             "Clear entire board",
             "Show/hide variation lines",
-            "FEN copy (click from top bar)"
+            "FEN copy (click from top bar)",
+            "Opens in full screen — ideal for projectors and smart boards",
+            "Touch screen support (drag pieces, draw arrows with a finger)"
+        ],
+        blocks: [
+            { color: "#f39c12", img: "./img/ansiklopedi.png", title: "📖 Opening Encyclopedia", isNew: true,
+              lead: "Every named opening and variation with its ECO code in one window. Click a line and its moves load onto the board.",
+              items: [
+                "3,800+ opening lines with ECO codes",
+                "Tabs for Open, Semi-Open, Closed, Indian and Flank openings",
+                "Search by name, ECO code or moves (najdorf, B90, e4 c5 Nf3)",
+                "A sample continuation from 2500+ Elo master games for every line",
+                "Clicking a line loads it into the notation as a new game",
+                "Live opening detection: the current position's opening is shown above the notation (transpositions included)"
+              ] },
+            { color: "#27ae60", img: "./img/veritabani.png", title: "🗄️ Local Master Games Database", isNew: true,
+              lead: "See master games in the Tree tab even without internet — you build the database from your own PGN archive.",
+              items: [
+                "Build from large PGN archives such as Caissabase or TWIC",
+                "Adjustable Elo threshold (default 2100, for both players)",
+                "The 50 highest-rated modern + 10 classic games for every position",
+                "Source switch: Oto | Lichess | DB",
+                "Replay a game on the mini-board, transfer it to the main board"
+              ] },
+            { color: "#3498db", img: "./img/quiz.png", title: "🎡 Quiz Mode & Puzzles",
+              lead: "Solve Lichess puzzles or prepare questions for your students from your own PGNs.",
+              items: [
+                "Lichess daily and random puzzles, ~65 themes, 4 difficulty levels",
+                "Solve questions from your own PGN (or .cbh) file",
+                "Prepare questions with the PGN → Quiz converter",
+                "Hint, skip, give up; score and streak tracking",
+                "Review a puzzle on the main board with the engine"
+              ] },
+            { color: "#e74c3c", img: "./img/saat.png", title: "⏱️ Timed Games vs Engine",
+              lead: "Play against the engine with a clock, like a real tournament game.",
+              items: [
+                "1, 3, 3+2, 5, 5+3, 10, 15, 30, 60 min and unlimited",
+                "The engine thinks according to its own remaining time",
+                "Checkmate, stalemate, threefold repetition, 50-move and insufficient material rules",
+                "Game-over screen: result, reason, you won / lost",
+                "Play Again — the new attempt is written as a variation to compare with the previous one"
+              ] },
+            { color: "#9b59b6", img: "./img/diyagram.png", title: "🖨️ Diagram Printing", isNew: true,
+              lead: "Turn your prepared puzzles into printable worksheets for your students.",
+              items: [
+                "6 or 9 diagrams per page",
+                "Caption under each diagram (White to play, Mate in 3…)",
+                "Print from the Games list with multi-select and right-click",
+                "Save as PDF and print"
+              ] }
         ]
     }
 };
@@ -387,6 +563,7 @@ function applyLang() {
     document.getElementById("introText").innerHTML = t.introText;
     document.getElementById("featTitle").innerText = t.featTitle;
     document.getElementById("buyBtn").innerText = t.buyBtn;
+    document.getElementById("heroCaption").innerText = t.heroCaption;
 
     const posList = document.getElementById("positiveList");
     posList.innerHTML = "";
@@ -411,6 +588,52 @@ function applyLang() {
         const li = document.createElement("li");
         li.innerText = item;
         tmList.appendChild(li);
+    });
+
+    renderBlocks(t);
+}
+
+// Yeni özellik bölümleri — resmi olmayan bölümde sadece metin kutusu görünür
+function renderBlocks(t) {
+    const box = document.getElementById("featureBlocks");
+    box.innerHTML = "";
+    (t.blocks || []).forEach(b => {
+        const sec = document.createElement("div");
+        sec.className = "feature-section feature-block";
+        sec.style.setProperty("--c", b.color);
+
+        const left = document.createElement("div");
+        left.className = "feature-left";
+        const img = document.createElement("img");
+        img.src = b.img;
+        img.alt = "";
+        img.onclick = () => openModal(img.src);
+        img.onerror = () => left.remove();
+        left.appendChild(img);
+
+        const right = document.createElement("div");
+        right.className = "feature-right";
+        const h = document.createElement("h2");
+        h.textContent = b.title;
+        if (b.isNew) {
+            const badge = document.createElement("span");
+            badge.className = "new-badge";
+            badge.textContent = currentLang === "tr" ? "YENİ" : "NEW";
+            h.appendChild(badge);
+        }
+        const lead = document.createElement("p");
+        lead.className = "lead";
+        lead.textContent = b.lead;
+        const lists = document.createElement("div");
+        lists.className = "lists-container";
+        const ul = document.createElement("ul");
+        ul.className = "positive";
+        b.items.forEach(it => { const li = document.createElement("li"); li.textContent = it; ul.appendChild(li); });
+        lists.appendChild(ul);
+        right.append(h, lead, lists);
+
+        sec.append(left, right);
+        box.appendChild(sec);
     });
 }
 
