@@ -269,6 +269,24 @@
             flex-direction: column;
         }
     }
+
+    /* ── Nasıl Alınır? (lisans anahtarı) ── */
+    .how-section {
+        background: rgba(255, 140, 0, 0.08); border: 2px solid #ff8c00; border-radius: 12px;
+        padding: 22px 24px; margin-top: 30px; box-shadow: 0 0 10px rgba(255,140,0,0.35);
+        scroll-margin-top: 20px; text-align: left;
+    }
+    .how-section h2 { color: #ff8c00; text-align: center; margin: 0 0 14px; }
+    .how-section p { margin: 0 0 14px; line-height: 1.55; }
+    .how-steps { margin: 0 0 16px; padding-left: 22px; line-height: 1.7; }
+    .how-steps b { color: #ffcc80; }
+    .how-links { display: flex; gap: 12px; flex-wrap: wrap; justify-content: center; }
+    .how-links a {
+        display: inline-block; padding: 10px 20px; border-radius: 8px; font-weight: bold; text-align: center;
+        text-decoration: none; border: 1px solid #ff8c00; color: #ff8c00;
+    }
+    .how-links a.dolu { background: #ff8c00; color: #0b1d2a; }
+    .how-links a:hover { filter: brightness(1.15); }
 </style>
 </head>
 <body>
@@ -307,7 +325,7 @@
                 <ul class="positive" id="positiveList"></ul>
                 <ul class="negative" id="negativeList"></ul>
             </div>
-            <button class="buy-btn" onclick="window.open('https://chesseapp.gumroad.com/l/czfxw', '_blank')" id="buyBtn"></button>
+            <button class="buy-btn" onclick="document.getElementById('nasil').scrollIntoView({behavior:'smooth'})" id="buyBtn"></button>
         </div>
     </div>
 
@@ -329,6 +347,16 @@
 
     <!-- Yeni özellik bölümleri — içerik aşağıdaki translations.*.blocks dizisinden çiziliyor -->
     <div id="featureBlocks"></div>
+
+    <!-- Nasıl Alınır? (lisans anahtarı) -->
+    <div class="how-section" id="nasil">
+        <h2 id="howTitle"></h2>
+        <p id="howText"></p>
+        <ol class="how-steps" id="howSteps"></ol>
+        <div class="how-links">
+            <a href="mailto:info@chesseapp.com.tr" class="dolu" id="howMail"></a>
+        </div>
+    </div>
 </div>
 
 <footer>
@@ -351,7 +379,14 @@ const translations = {
         introText: "Bu yazılım, başlangıçta web tabanlı olarak geliştirilmiş olup daha stabil ve sorunsuz bir kullanım deneyimi sunmak amacıyla Electron platformuna aktarılmıştır. Windows 10, 11 ve 12 işletim sistemleri ile uyumludur. Lütfen işletim sisteminizin Electron tabanlı uygulamaları desteklediğinden emin olunuz. Yazılım çevrimdışı (offline) olarak çalışabilmektedir. Ancak Lichess bulmacaları ve Lichess oyun veritabanı gibi çevrimiçi özellikler için internet bağlantısı gereklidir. İnternet olmadan usta oyunlarını görmek için kendi PGN arşivinizden yerel veritabanı oluşturabilirsiniz. Lichess veritabanı oyunlarını kullanabilmek için Lichess üzerinden kişisel bir API token almanız gerekmektedir. Token oluşturmak için: <a href=\"https://lichess.org/account/oauth/token\" target=\"_blank\" style=\"color:#1abc9c;\">https://lichess.org/account/oauth/token</a> Bu yazılım yalnızca kişisel kullanım içindir. Ücret karşılığında satılamaz ve üçüncü şahıslarla paylaşılamaz.",
         featTitle: "Özellikler & Kısıtlamalar",
         heroCaption: "Chesse — PGN görüntüleyici, motor analizi, açılış ansiklopedisi ve satranç eğitim araçları tek programda",
-        buyBtn: "Satın Al",
+        buyBtn: "🔑 Nasıl Alınır?",
+        howTitle: "🔑 Nasıl Alınır?",
+        howText: "Program lisans anahtarıyla çalışır.",
+        howSteps: [
+            "Lisans anahtarı için aşağıdaki e-posta adresinden bilgi edinin.",
+            "İlk açılışta anahtarınızı girin. Sonrasında program internetsiz çalışır ve 1 yıl boyunca ücretsiz güncellenir. Bir anahtar 1 bilgisayarda kullanılır."
+        ],
+        howMail: "✉️ Anahtar için yazın: info@chesseapp.com.tr",
         positive: [
             "PGN ve ChessBase (.cbh) dosyalarını açar",
             "PGN Kütüphanesi — açtığınız dosyaları kalıcı olarak hatırlar (50 dosya)",
@@ -454,7 +489,14 @@ const translations = {
         introText: "This software was originally developed as a web-based application and later adapted to the Electron platform for improved stability. It is compatible with Windows 10, 11, and 12. Please make sure that your operating system supports Electron-based applications. The software works offline. However, online features such as Lichess puzzles and the Lichess game database require an internet connection. To see master games offline, you can build a local database from your own PGN archive. For the Lichess game database you need to obtain a personal API token from Lichess. You can generate your token here: <a href=\"https://lichess.org/account/oauth/token\" target=\"_blank\" style=\"color:#1abc9c;\">https://lichess.org/account/oauth/token</a> This software is licensed for personal use only. It may not be resold or distributed to third parties.",
         featTitle: "Features & Limitations",
         heroCaption: "Chesse — PGN viewer, engine analysis, opening encyclopedia and chess teaching tools in one program",
-        buyBtn: "Buy Now",
+        buyBtn: "🔑 How to Get It",
+        howTitle: "🔑 How to Get It",
+        howText: "The program works with a license key.",
+        howSteps: [
+            "For a license key, contact us at the e-mail address below.",
+            "Enter your key the first time you open it. After that the program works offline and gets free updates for 1 year. One key works on 1 computer."
+        ],
+        howMail: "✉️ Request a key: info@chesseapp.com.tr",
         positive: [
             "Opens PGN and ChessBase (.cbh) files",
             "PGN Library — permanently remembers the files you open (50 files)",
@@ -563,6 +605,12 @@ function applyLang() {
     document.getElementById("introText").innerHTML = t.introText;
     document.getElementById("featTitle").innerText = t.featTitle;
     document.getElementById("buyBtn").innerText = t.buyBtn;
+
+    // Nasıl Alınır?
+    document.getElementById("howTitle").innerText = t.howTitle;
+    document.getElementById("howText").innerText = t.howText;
+    document.getElementById("howSteps").innerHTML = t.howSteps.map(x => "<li>" + x + "</li>").join("");
+    document.getElementById("howMail").innerText = t.howMail;
     document.getElementById("heroCaption").innerText = t.heroCaption;
 
     const posList = document.getElementById("positiveList");
